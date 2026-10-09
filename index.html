@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGCL_Employees'_Pay Fixation 2026</title>
+<style>
+:root{
+  --bg:#eef5f2; --card:#ffffff; --ink:#233633; --muted:#71817d;
+  --green:#3f8176; --green2:#2f6e63; --soft:#e6f2ef; --line:#d9e5e1;
+  --input:#fbfdfc; --gold:#b8893d; --danger:#a64c4c;
+  --shadow:0 12px 35px rgba(42,76,68,.09);
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#f5f8f7,#eaf3f0);color:var(--ink);
+font-family:"Noto Sans Bengali","Nikosh","Segoe UI",Arial,sans-serif}
+header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+position:sticky;top:0;z-index:10}
+.header{max-width:1180px;margin:auto;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+h1{font-size:22px;margin:0;color:#2d655b}.subtitle{font-size:12px;color:var(--muted);margin-top:4px}
+.badge{background:var(--soft);color:var(--green2);padding:7px 11px;border-radius:20px;font-size:12px;font-weight:700}
+main{max-width:1180px;margin:auto;padding:25px 18px 45px}
+.grid{display:grid;grid-template-columns:390px 1fr;gap:20px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.card-head{padding:17px 19px;border-bottom:1px solid var(--line);background:linear-gradient(#fff,#f8fbfa)}
+.card-head h2{font-size:17px;margin:0 0 3px;color:#315f57}.card-head p{font-size:12px;color:var(--muted);margin:0}
+.form{padding:19px}.field{margin-bottom:15px}.field label{display:block;font-size:13px;font-weight:750;margin-bottom:7px;color:#49625d}
+input,select{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:var(--input);
+font:inherit;color:var(--ink);outline:none}
+input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--soft)}
+select:disabled{opacity:.6}
+.help{font-size:11px;color:var(--muted);margin-top:5px}
+.primary{width:100%;border:0;border-radius:12px;padding:12px;background:var(--green);color:white;font-size:14px;
+font-weight:800;cursor:pointer;box-shadow:0 7px 18px rgba(63,129,118,.2)}
+.primary:hover{background:var(--green2)}
+.secondary{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
+.result{padding:0 19px 20px}.person{padding:16px 17px;background:var(--soft);border-radius:13px;margin:18px 0;
+display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}.person b{color:#295e55}.person div{font-size:13px}
+table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--line);border-radius:13px}
+th,td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+th{background:#eef6f3;color:#315f57;text-align:left;font-weight:800}tr:last-child td{border-bottom:0}
+td:first-child{width:55px;text-align:center;color:var(--muted);font-weight:700}
+td.value{font-weight:800;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.emphasis td{background:#f4faf8}.big td{font-size:14px;background:#e7f3ef!important;color:#245e55}
+.scale-box{margin:14px 0;padding:12px 14px;border:1px dashed #b9d3cd;background:#f7fbfa;border-radius:12px}
+.scale-box .label{font-size:11px;color:var(--muted)}.scale-box .scale{font-size:14px;font-weight:800;color:#2d655b;line-height:1.7;word-break:break-word}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:14px}
+.hidden{display:none}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin:14px 0 0}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.header{padding:14px}.person{grid-template-columns:1fr}}
+@media print{
+ body{background:#fff}.header{position:static}.grid{display:block}.card:first-child{display:none}.card{box-shadow:none;border:0}
+ main{padding:0}.result{padding:0}.actions{display:none}.person{border:1px solid #ddd}
+}
+
+@font-face{
+  font-family:'NikoshBan';
+  src:local('NikoshBan'), local('Nikosh BAN'), local('Nikosh'), local('NikoshBAN');
+  font-weight:400;
+  font-style:normal;
+}
+
+/* NikoshBan/Nikosh is preferred for the official print report.
+   If the font is installed on Windows, the browser will use it directly. */
+
+/* A4 official report */
+.print-report{display:none}
+@media print{
+  @page{size:A4 portrait;margin:10mm 9mm 9mm 9mm}
+  body{background:#fff!important;font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important;
+       color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body *{font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important}
+  header,main{display:none!important}
+  .print-report{display:block!important;width:100%;font-size:11.2pt;line-height:1.12}
+  .pr-head{text-align:center;margin:0 0 7px}
+  .pr-company{font-size:17pt;font-weight:bold;line-height:1.05}
+  .pr-sub{font-size:10.5pt;margin-top:2px}
+  .pr-place{font-size:10.5pt;margin-top:1px}
+  .pr-title{font-size:12.5pt;font-weight:bold;text-decoration:underline;margin-top:16px;line-height:1.15}
+  .pr-table{width:100%;border-collapse:collapse;table-layout:fixed;border-radius:0!important;overflow:visible}
+  .pr-table th,.pr-table td{border:1px solid #222;padding:3.2px 5px;min-height:20px;height:auto;line-height:1.22;font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important;white-space:normal;overflow:visible;overflow-wrap:anywhere;word-break:normal}
+  .pr-table th{background:#dbe4f4!important;text-align:center;font-weight:bold;border-radius:0!important}
+  .pr-table th:first-child,.pr-table th:last-child,.pr-table tr:first-child th{border-radius:0!important}
+  .pr-table .no{width:6%;text-align:center}
+  .pr-table .desc{width:59%}
+  .pr-table .val{width:35%}
+  .pr-table td.val{color:#000!important;text-align:right;background:#fff!important;font-weight:normal;white-space:normal!important;overflow-wrap:anywhere;word-break:normal}
+  .pr-table td.num{text-align:center}
+  .pr-table .calc-row td{height:auto;min-height:20px}
+  .pr-table .strong td{font-weight:bold}
+  .pr-note{margin-top:8px;font-size:10.5pt}
+  .sign-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:20mm;row-gap:13mm;margin-top:17mm}
+  .sign{text-align:center;min-height:18mm;font-size:10.5pt;line-height:1.15}
+  .sign.right{text-align:center}
+  .print-actions{display:none!important}
+}
+</style>
+</head>
+<body>
+<header><div class="header">
+  <div><h1>বেতন নির্ধারণ</h1><div class="subtitle">২০১৫-এর প্রাপ্ত বেতন থেকে ২০২৬-এর প্রাপ্য বেতন নির্ধারণ</div></div>
+  <div class="badge">Interactive Pay Fixation</div>
+</div></header>
+
+<main>
+<div class="grid">
+<section class="card">
+  <div class="card-head"><h2>তথ্য এন্ট্রি</h2><p>শুধু প্রয়োজনীয় ইনপুটগুলো নির্বাচন/লিখুন</p></div>
+  <div class="form">
+    <div class="field">
+      <label>কর্মকর্তা/কর্মচারীর নাম</label>
+      <input id="name" type="text" placeholder="নাম লিখুন">
+    </div>
+    <div class="field">
+      <label>পদবি ও বর্তমান কর্মস্থল</label>
+      <input id="designation" type="text" placeholder="পদবি ও কর্মস্থল লিখুন">
+    </div>
+    <div class="field">
+      <label>বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ</label>
+      <input id="date" type="date">
+    </div>
+    <div class="field">
+      <label>২০১৫ অনুযায়ী বেতন গ্রেড</label>
+      <select id="grade"><option value="">গ্রেড নির্বাচন করুন</option></select>
+    </div>
+    <div class="field">
+      <label>২০১৫ অনুযায়ী বেতন স্কেল</label>
+      <select id="scale" disabled><option value="">আগে গ্রেড নির্বাচন করুন</option></select>
+      <div class="help">নির্বাচিত গ্রেডের সংশ্লিষ্ট scale-ই দেখানো হবে।</div>
+    </div>
+    <div class="field">
+      <label>৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতন</label>
+      <select id="basic" disabled><option value="">আগে বেতন স্কেল নির্বাচন করুন</option></select>
+      <div class="help">শুধু নির্বাচিত scale-এর বৈধ ধাপগুলো পাওয়া যাবে।</div>
+    </div>
+    <button class="primary" onclick="calculate()">বেতন নির্ধারণ করুন</button>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head"><h2>বেতন নির্ধারণ প্রতিবেদন</h2><p>নির্বাচিত তথ্য অনুযায়ী ফলাফল</p></div>
+  <div id="result" class="result">
+    <div style="padding:55px 15px;text-align:center;color:#7b8b87">
+      বাম পাশের তথ্যগুলো পূরণ করে <b>“বেতন নির্ধারণ করুন”</b> চাপুন।
+    </div>
+  </div>
+</section>
+</div>
+</main>
+<div class="print-report" id="printReport">
+  <div class="pr-head">
+    <div class="pr-company">পশ্চিমাঞ্চল গ্যাস কোম্পানী লিমিটেড</div>
+    <div class="pr-sub">(পেট্রোবাংলার একটি কোম্পানি)</div>
+    <div class="pr-place">নলকা, সিরাজগঞ্জ।</div>
+    <div class="pr-title">জাতীয় বেতনস্কেল, ২০২৬-এর অনুসরণে পিজিসিএল-এ কার্যকর বেতনস্কেল, ২০২৬ অনুযায়ী বেতন নির্ধারণ প্রতিবেদন :</div>
+  </div>
+
+  <table class="pr-table">
+    <thead><tr><th class="no">ক্রমিক</th><th class="desc">বিবরণ</th><th class="val">মান</th></tr></thead>
+    <tbody id="prBody">
+      <tr class="calc-row"><td class="num">১.</td><td>কর্মকর্তা/কর্মচারীর নাম:</td><td class="val" id="prName">—</td></tr>
+      <tr class="calc-row"><td class="num">২.</td><td>পদবি ও বর্তমান কর্মস্থল:</td><td class="val" id="prDesignation">—</td></tr>
+      <tr class="calc-row"><td class="num">৩.</td><td>বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ:</td><td class="val" id="prDate">—</td></tr>
+  </tbody></table>
+
+  <div class="pr-note">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</div>
+
+  <div class="sign-grid">
+    <div class="sign">ব্যবস্থাপক (জেনারেল এডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
+  </div>
+</div>
+
+
+<script>
+const DATA = {"s2015":{"1":{"steps":[78000],"scale":"78000"},"2":{"steps":[66000,68480,71050,73720,76490],"scale":"66000-68480-71050-73720-76490"},"3":{"steps":[56500,58760,61120,63570,66120,68770,71530,74400],"scale":"56500-58760-61120-63570-66120-68770-71530-74400"},"4":{"steps":[50000,52000,54080,56250,58500,60840,63280,65820,68460,71200],"scale":"50000-52000-54080-56250-58500-60840-63280-65820-68460-71200"},"5":{"steps":[43000,44940,46970,49090,51300,53610,56030,58560,61200,63960,66840,69850],"scale":"43000-44940-46970-49090-51300-53610-56030-58560-61200-63960-66840-69850"},"6":{"steps":[35500,37280,39150,41110,43170,45330,47600,49980,52480,55110,57870,60770,63810,67010],"scale":"35500-37280-39150-41110-43170-45330-47600-49980-52480-55110-57870-60770-63810-67010"},"7":{"steps":[29000,30450,31980,33580,35260,37030,38890,40840,42890,45040,47300,49670,52160,54770,57510,60390,63410],"scale":"29000-30450-31980-33580-35260-37030-38890-40840-42890-45040-47300-49670-52160-54770-57510-60390-63410"},"8":{"steps":[23000,24150,25360,27970,29370,30840,32390,34010,35720,37510,39390,41360,43430,45610,47900,50300,52820,55470],"scale":"23000-24150-25360-27970-29370-30840-32390-34010-35720-37510-39390-41360-43430-45610-47900-50300-52820-55470"},"9":{"steps":[22000,23100,24260,25480,26760,28100,29510,30990,32540,34170,35880,37680,39570,41550,43630,45820,48120,50530,53060],"scale":"22000-23100-24260-25480-26760-28100-29510-30990-32540-34170-35880-37680-39570-41550-43630-45820-48120-50530-53060"},"10":{"steps":[16000,16800,17640,18530,19460,20440,21470,22550,23680,24870,26120,27430,28810,30260,31780,33370,35040,36800,38640],"scale":"16000-16800-17640-18530-19460-20440-21470-22550-23680-24870-26120-27430-28810-30260-31780-33370-35040-36800-38640"},"11":{"steps":[12500,13130,13790,14480,15210,15980,16780,17620,18510,19440,20420,21450,22530,23660,24850,26100,27410,28790,30230],"scale":"12500-13130-13790-14480-15210-15980-16780-17620-18510-19440-20420-21450-22530-23660-24850-26100-27410-28790-30230"},"12":{"steps":[11300,11870,12470,13100,13760,14450,15180,15940,16740,17580,18460,19390,20360,21380,22450,23580,24760,26000,27300],"scale":"11300-11870-12470-13100-13760-14450-15180-15940-16740-17580-18460-19390-20360-21380-22450-23580-24760-26000-27300"},"13":{"steps":[11000,11550,12130,12740,13380,14050,14760,15500,16280,17100,17960,18860,19810,20810,21860,22960,24110,25320,26590],"scale":"11000-11550-12130-12740-13380-14050-14760-15500-16280-17100-17960-18860-19810-20810-21860-22960-24110-25320-26590"},"14":{"steps":[10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310,22380,23500,24680],"scale":"10200-10710-11250-11820-12420-13050-13710-14400-15120-15880-16680-17520-18400-19320-20290-21310-22380-23500-24680"},"15":{"steps":[9700,10190,10700,11240,11810,12410,13040,13700,14390,15110,15870,16670,17510,18390,19310,20280,21300,22370,23490],"scale":"9700-10190-10700-11240-11810-12410-13040-13700-14390-15110-15870-16670-17510-18390-19310-20280-21300-22370-23490"},"16":{"steps":[9300,9770,10260,10780,11320,11890,12490,13120,13780,14470,15200,15960,16760,17600,18480,19410,20390,21410,22490],"scale":"9300-9770-10260-10780-11320-11890-12490-13120-13780-14470-15200-15960-16760-17600-18480-19410-20390-21410-22490"},"17":{"steps":[9000,9450,9930,10430,10960,11510,12090,12700,13340,14010,14720,15460,16240,17060,17920,18820,19770,20760,21800],"scale":"9000-9450-9930-10430-10960-11510-12090-12700-13340-14010-14720-15460-16240-17060-17920-18820-19770-20760-21800"},"18":{"steps":[8800,9240,9710,10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310],"scale":"8800-9240-9710-10200-10710-11250-11820-12420-13050-13710-14400-15120-15880-16680-17520-18400-19320-20290-21310"},"19":{"steps":[8500,8930,9380,9850,10350,10870,11420,12000,12600,13230,13900,14600,15330,16100,16910,17760,18650,19590,20570],"scale":"8500-8930-9380-9850-10350-10870-11420-12000-12600-13230-13900-14600-15330-16100-16910-17760-18650-19590-20570"},"20":{"steps":[8250,8670,9110,9570,10050,10560,11090,11650,12240,12860,13510,14190,14900,15650,16440,17270,18140,19050,20010],"scale":"8250-8670-9110-9570-10050-10560-11090-11650-12240-12860-13510-14190-14900-15650-16440-17270-18140-19050-20010"}},"s2026":{"1":{"steps":[156000],"scale":"156000"},"2":{"steps":[132000,135700,139400,143200,147200,151200,153000],"scale":"132000-135700-139400-143200-147200-151200-153000"},"3":{"steps":[113000,117000,121100,125300,129700,134300,139000,143800,148800],"scale":"113000-117000-121100-125300-129700-134300-139000-143800-148800"},"4":{"steps":[100000,103500,107200,110900,114800,118800,123000,127300,131700,136300,142400],"scale":"100000-103500-107200-110900-114800-118800-123000-127300-131700-136300-142400"},"5":{"steps":[86000,89500,93100,96800,100700,104700,108900,113200,117700,122500,127400,132400,139700],"scale":"86000-89500-93100-96800-100700-104700-108900-113200-117700-122500-127400-132400-139700"},"6":{"steps":[71000,74600,78300,82200,86400,90700,95200,100000,104900,110200,115700,121500,127600,134000],"scale":"71000-74600-78300-82200-86400-90700-95200-100000-104900-110200-115700-121500-127600-134000"},"7":{"steps":[58000,60900,64000,67200,70500,74100,77800,81700,85700,90000,94500,99200,104200,109400,114900,120600,126800],"scale":"58000-60900-64000-67200-70500-74100-77800-81700-85700-90000-94500-99200-104200-109400-114900-120600-126800"},"8":{"steps":[46000,48300,50800,53300,56000,58800,61700,64800,68000,71400,75000,78700,82700,86800,91100,95700,100500,105500,110800],"scale":"46000-48300-50800-53300-56000-58800-61700-64800-68000-71400-75000-78700-82700-86800-91100-95700-100500-105500-110800"},"9":{"steps":[44000,46200,48600,51000,53500,56200,59000,62000,65100,68300,71700,75300,79100,83000,87200,91500,96100,100900,105900],"scale":"44000-46200-48600-51000-53500-56200-59000-62000-65100-68300-71700-75300-79100-83000-87200-91500-96100-100900-105900"},"10":{"steps":[32000,33600,35300,37100,38900,40900,42900,45100,47300,49700,52200,54800,57500,60400,63400,66600,69900,73400,77300],"scale":"32000-33600-35300-37100-38900-40900-42900-45100-47300-49700-52200-54800-57500-60400-63400-66600-69900-73400-77300"},"11":{"steps":[25000,26300,27600,29000,30400,32000,33600,35200,37000,38800,40800,42800,44900,47200,49500,52000,54600,57300,60500],"scale":"25000-26300-27600-29000-30400-32000-33600-35200-37000-38800-40800-42800-44900-47200-49500-52000-54600-57300-60500"},"12":{"steps":[24300,25600,26800,28200,29600,31100,32600,34200,36000,37700,39600,41600,43700,45900,48200,50600,53100,55700,58700],"scale":"24300-25600-26800-28200-29600-31100-32600-34200-36000-37700-39600-41600-43700-45900-48200-50600-53100-55700-58700"},"13":{"steps":[24000,25200,26500,27800,29200,30700,32200,33800,35500,37300,39100,41100,43200,45300,47600,49900,52400,55100,58000],"scale":"24000-25200-26500-27800-29200-30700-32200-33800-35500-37300-39100-41100-43200-45300-47600-49900-52400-55100-58000"},"14":{"steps":[23500,24700,26000,27300,28600,30000,31500,33100,34800,36500,38300,40200,42300,44400,46600,48900,51300,53900,56800],"scale":"23500-24700-26000-27300-28600-30000-31500-33100-34800-36500-38300-40200-42300-44400-46600-48900-51300-53900-56800"},"15":{"steps":[22800,24000,25200,26400,27800,29100,30600,32100,33700,35400,37200,39000,41000,43000,45200,47400,49800,52300,55200],"scale":"22800-24000-25200-26400-27800-29100-30600-32100-33700-35400-37200-39000-41000-43000-45200-47400-49800-52300-55200"},"16":{"steps":[21900,23000,24200,25400,26700,28000,29400,30900,32400,34000,35700,37500,39400,41300,43400,45600,47900,50200,52900],"scale":"21900-23000-24200-25400-26700-28000-29400-30900-32400-34000-35700-37500-39400-41300-43400-45600-47900-50200-52900"},"17":{"steps":[21400,22500,23600,24800,26100,27400,28700,30200,31700,33200,34900,36700,38500,40400,42400,44500,46800,49100,51900],"scale":"21400-22500-23600-24800-26100-27400-28700-30200-31700-33200-34900-36700-38500-40400-42400-44500-46800-49100-51900"},"18":{"steps":[21000,22100,23200,24400,25600,26900,28200,29600,31100,32600,34300,36000,37800,39600,41600,43700,45900,48200,50900],"scale":"21000-22100-23200-24400-25600-26900-28200-29600-31100-32600-34300-36000-37800-39600-41600-43700-45900-48200-50900"},"19":{"steps":[20500,21600,22700,23800,25000,26200,27500,28900,30300,31900,33400,35100,36900,38700,40600,42700,44800,47000,49600],"scale":"20500-21600-22700-23800-25000-26200-27500-28900-30300-31900-33400-35100-36900-38700-40600-42700-44800-47000-49600"},"20":{"steps":[20000,21000,22100,23200,24400,25600,26900,28200,29600,31100,32600,34300,36000,37800,39600,41600,43700,45900,48400],"scale":"20000-21000-22100-23200-24400-25600-26900-28200-29600-31100-32600-34300-36000-37800-39600-41600-43700-45900-48400"}}};
+
+const gradeEl=document.getElementById("grade");
+const scaleEl=document.getElementById("scale");
+const basicEl=document.getElementById("basic");
+
+for(let g=1;g<=20;g++){
+  const o=document.createElement("option"); o.value=g; o.textContent="গ্রেড-"+g; gradeEl.appendChild(o);
+}
+
+function fmt(n){
+  if(n===null || n===undefined || Number.isNaN(n)) return "—";
+  return Math.round(n).toLocaleString("en-US") + "/-";
+}
+function fmtDate(v){
+  if(!v) return "—";
+  const d=new Date(v+"T00:00:00");
+  return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear();
+}
+function scaleText(arr){return arr.map(x=>Number(x).toLocaleString("en-US")).join("-");}
+
+gradeEl.addEventListener("change",()=>{
+  const g=Number(gradeEl.value);
+  scaleEl.innerHTML="";
+  basicEl.innerHTML="";
+  if(!g){scaleEl.disabled=true;basicEl.disabled=true;return;}
+  const s=DATA.s2015[g];
+  const o=document.createElement("option"); o.value=s.scale; o.textContent=s.scale; scaleEl.appendChild(o);
+  scaleEl.disabled=false;
+  populateBasic(s.steps);
+});
+scaleEl.addEventListener("change",()=>{
+  const g=Number(gradeEl.value);
+  if(g) populateBasic(DATA.s2015[g].steps);
+});
+function populateBasic(steps){
+  basicEl.innerHTML='<option value="">মূলবেতন ধাপ নির্বাচন করুন</option>';
+  steps.forEach(v=>{
+    const o=document.createElement("option");o.value=v;o.textContent=Number(v).toLocaleString("en-US")+"/-";basicEl.appendChild(o);
+  });
+  basicEl.disabled=false;
+}
+
+function firstGE(steps, x){
+  for(const v of steps) if(v>=x) return v;
+  return Math.max(...steps);
+}
+function nextStep(steps, x){
+  const i=steps.findIndex(v=>v===x);
+  if(i<0) return firstGE(steps,x);
+  return steps[Math.min(i+1,steps.length-1)];
+}
+
+function calculate(){
+  const name=document.getElementById("name").value.trim();
+  const designation=document.getElementById("designation").value.trim();
+  const date=document.getElementById("date").value;
+  const grade=Number(gradeEl.value);
+  const basic=Number(basicEl.value);
+
+  if(!name || !designation || !date || !grade || !basic){
+    alert("দয়া করে সব প্রয়োজনীয় তথ্য পূরণ করুন।");
+    return;
+  }
+
+  const oldSteps=DATA.s2015[grade].steps;
+  const newSteps=DATA.s2026[grade].steps;
+
+  // Excel formulas reproduced:
+  // C12 = INDEX(Steps2015,1)
+  // C13 = C11-C12
+  // C15 = INDEX(Steps,1)
+  // C16 = C13+C15
+  // C17 = IF(C16>MAX(Steps),MAX(Steps),INDEX(Steps,COUNTIF(Steps,"<"&C16)+1))
+  // C18 = INDEX(Steps,MIN(MATCH(C17,Steps,0)+1,COUNT(Steps)))
+  // C19 = C18-C11
+  // C20 = C19*IF(grade<=9,40%,50%)
+  // C21 = C11+C20
+  // C22 = C19*IF(grade<=9,70%,75%)
+  // C23 = C11+C22
+  // C24 = INDEX(Steps,MIN(MATCH(C18,Steps,0)+1,COUNT(Steps)))
+
+  const start2015=oldSteps[0];
+  const difference=basic-start2015;
+  const start2026=newSteps[0];
+  const provisional=difference+start2026;
+  const matchedStep=firstGE(newSteps,provisional);
+  const annualStep=nextStep(newSteps,matchedStep);
+  const increment=annualStep-basic;
+  const pct40=grade<=9 ? 0.40 : 0.50;
+  const interim40=increment*pct40;
+  const salary40=basic+interim40;
+  const pct70=grade<=9 ? 0.70 : 0.75;
+  const interim70=increment*pct70;
+  const salary70=basic+interim70;
+  const nextAnnual=nextStep(newSteps,annualStep);
+
+  document.getElementById("result").innerHTML=`
+    <div class="person">
+      <div><span>নাম</span><br><b>${esc(name)}</b></div>
+      <div><span>পদবি/কর্মস্থল</span><br><b>${esc(designation)}</b></div>
+      <div><span>নিয়োগ/পদোন্নতির তারিখ</span><br><b>${fmtDate(date)}</b></div>
+      <div><span>২০১৫-এর গ্রেড</span><br><b>গ্রেড-${grade}</b></div>
+    </div>
+
+    <div class="scale-box">
+      <div class="label">নির্বাচিত ২০১৫ বেতন স্কেল</div>
+      <div class="scale">${esc(DATA.s2015[grade].scale)}</div>
+    </div>
+
+    <table>
+      <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th style="text-align:right">ফলাফল</th></tr></thead>
+      <tbody>
+        <tr><td>৫</td><td>৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতন</td><td class="value">${fmt(basic)}</td></tr>
+        <tr><td>৬</td><td>২০১৫ বেতনস্কেলের প্রারম্ভিক ধাপ</td><td class="value">${fmt(start2015)}</td></tr>
+        <tr><td>৭</td><td>পার্থক্য (৫−৬)</td><td class="value">${fmt(difference)}</td></tr>
+        <tr class="emphasis"><td>৮</td><td>অনুরূপ ২০২৬ বেতনস্কেল (সমতুল্য গ্রেড)</td><td class="value">গ্রেড-${grade}</td></tr>
+        <tr><td>৯</td><td>২০২৬ বেতনস্কেলের প্রারম্ভিক ধাপ</td><td class="value">${fmt(start2026)}</td></tr>
+        <tr><td>১০</td><td>০১/০৭/২০২৬ তারিখে মূলবেতন (৭+৯)</td><td class="value">${fmt(provisional)}</td></tr>
+        <tr><td>১১</td><td>ধাপ মিলকরণের পর ০১/০৭/২০২৬ তারিখে প্রাপ্য ধাপ</td><td class="value">${fmt(matchedStep)}</td></tr>
+        <tr class="big"><td>১২</td><td>০১/০৭/২০২৬ তারিখে বার্ষিক বেতনবৃদ্ধিসহ মূলবেতন</td><td class="value">${fmt(annualStep)}</td></tr>
+        <tr class="big"><td>১৩</td><td>০১/০৭/২০২৬ তারিখে বেতন বৃদ্ধি (১২−৫)</td><td class="value">${fmt(increment)}</td></tr>
+        <tr><td>১৪</td><td>বেতন বৃদ্ধির ${grade<=9?40:50}%</td><td class="value">${fmt(interim40)}</td></tr>
+        <tr class="emphasis"><td>১৫</td><td>০১/০৭/২০২৬–৩১/১২/২০২৬ পর্যন্ত ${grade<=9?40:50}%সহ প্রাপ্য মূলবেতন</td><td class="value">${fmt(salary40)}</td></tr>
+        <tr><td>১৬</td><td>বেতন বৃদ্ধির ${grade<=9?70:75}%</td><td class="value">${fmt(interim70)}</td></tr>
+        <tr class="emphasis"><td>১৭</td><td>০১/০১/২০২৭–৩০/০৬/২০২৭ পর্যন্ত ${grade<=9?70:75}%সহ প্রাপ্য মূলবেতন</td><td class="value">${fmt(salary70)}</td></tr>
+        <tr class="big"><td>১৮</td><td>০১/০৭/২০২৭ তারিখে বার্ষিক বেতন বৃদ্ধিসহ ১০০% প্রাপ্য মূলবেতন</td><td class="value">${fmt(nextAnnual)}</td></tr>
+        <tr><td>১৯</td><td>পরবর্তী বার্ষিক বেতন বৃদ্ধির তারিখ</td><td class="value">০১/০৭/২০২৮</td></tr>
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button class="secondary" onclick="window.print()">🖨 প্রতিবেদন প্রিন্ট</button>
+    </div>
+    <div class="note">
+      <b>নোট:</b> গণনার logic মূল Excel-এর C12–C25 সূত্র অনুসরণ করে তৈরি করা হয়েছে।
+      ১ম–৯ম গ্রেডে ৪০% ও ৭০%, এবং ১০ম–২০তম গ্রেডে ৫০% ও ৭৫% হারে গণনার logic অপরিবর্তিত রাখা হয়েছে।
+    </div>`;
+
+  // Official A4 print report
+  document.getElementById("prName").textContent = name;
+  document.getElementById("prDesignation").textContent = designation;
+  document.getElementById("prDate").textContent = fmtDate(date);
+  const rows = [
+    ["৪.", "জাতীয় বেতনস্কেল-২০১৫ অনুযায়ী বর্তমানে প্রাপ্ত বেতনস্কেল (মূল বেতনস্কেল/টাইমস্কেল/সিলেকশন গ্রেড/উচ্চতর গ্রেড), গ্রেড-"+grade+":", scaleText(oldSteps)],
+    ["৫.", "৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতন:", fmt(basic)],
+    ["৬.", "২০১৫ বেতনস্কেলের প্রারম্ভিক ধাপ:", fmt(start2015)],
+    ["৭.", "পার্থক্য (৫−৬):", fmt(difference)],
+    ["৮.", "জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী অনুরূপ বেতনস্কেল (গ্রেড-"+grade+"):", scaleText(newSteps)],
+    ["৯.", "২০২৬ বেতনস্কেলের প্রারম্ভিক ধাপ:", fmt(start2026)],
+    ["১০.", "০১/০৭/২০২৬ তারিখে মূলবেতন (৭+৯):", fmt(provisional)],
+    ["১১.", "ধাপ মিলকরণের পর ০১/০৭/২০২৬ তারিখে প্রাপ্য ধাপ:", fmt(matchedStep)],
+    ["১২.", "০১/০৭/২০২৬ তারিখে বার্ষিক বেতনবৃদ্ধিসহ মূলবেতন:", fmt(annualStep)],
+    ["১৩.", "০১/০৭/২০২৬ তারিখে বেতন বৃদ্ধি (১২−৫):", fmt(increment)],
+    ["১৪.", "বেতন বৃদ্ধির "+(grade<=9?40:50)+"%:", fmt(interim40)],
+    ["১৫.", "০১/০৭/২০২৬–৩১/১২/২০২৬ পর্যন্ত "+(grade<=9?40:50)+"%সহ প্রাপ্য মূলবেতন:", fmt(salary40)],
+    ["১৬.", "বেতন বৃদ্ধির "+(grade<=9?70:75)+"%:", fmt(interim70)],
+    ["১৭.", "০১/০১/২০২৭–৩০/০৬/২০২৭ পর্যন্ত "+(grade<=9?70:75)+"%সহ প্রাপ্য মূলবেতন:", fmt(salary70)],
+    ["১৮.", "০১/০৭/২০২৭ তারিখে বার্ষিক বেতন বৃদ্ধিসহ ১০০% প্রাপ্য মূলবেতন:", fmt(nextAnnual)],
+    ["১৯.", "পরবর্তী বার্ষিক বেতন বৃদ্ধির তারিখ:", "০১/০৭/২০২৮"]
+  ];
+  document.getElementById("prBody").insertAdjacentHTML("beforeend", rows.map((r,i)=>
+    `<tr class="${[7,8,11,13,14].includes(i) ? 'strong':''}">
+      <td class="no" style="width:6%;text-align:center">${r[0]}</td>
+      <td class="desc" style="width:59%">${r[1]}</td>
+      <td class="val" style="width:35%;text-align:right;background:#fff!important;color:#000">${r[2]}</td>
+    </tr>`).join(""));
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+</script>
+</body>
+</html>
