@@ -13,7 +13,7 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:linear-gradient(135deg,#f5f8f7,#eaf3f0);color:var(--ink);
-font-family:"NikoshBAN","NikoshBAN","Segoe UI",Arial,sans-serif}
+font-family:"Noto Sans Bengali","Nikosh","Segoe UI",Arial,sans-serif}
 header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
 position:sticky;top:0;z-index:10}
 .header{max-width:1180px;margin:auto;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px}
@@ -63,6 +63,17 @@ td.value{font-weight:800;text-align:right;white-space:nowrap;font-variant-numeri
 /* NikoshBan/Nikosh is preferred for the official print report.
    If the font is installed on Windows, the browser will use it directly. */
 
+/* Larger NikoshBAN typography in the web interface */
+body, input, select, button {font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif;}
+body{font-size:17px;line-height:1.45}
+h1{font-size:27px}.subtitle{font-size:15px}.badge{font-size:14px}
+.card-head h2{font-size:22px}.card-head p{font-size:15px}
+.field label{font-size:17px}.field input,.field select{font-size:17px;min-height:46px}
+.help{font-size:14px}.primary{font-size:18px}.secondary{font-size:17px}
+.person div{font-size:17px}.scale-box .label{font-size:14px}
+.scale-box .scale{font-size:17px}.note{font-size:14px}
+th,td{font-size:16px}.big td{font-size:17px}
+
 /* A4 official report */
 .print-report{display:none}
 @media print{
@@ -71,14 +82,14 @@ td.value{font-weight:800;text-align:right;white-space:nowrap;font-variant-numeri
        color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body *{font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important}
   header,main{display:none!important}
-  .print-report{display:block!important;width:100%;font-size:11.2pt;line-height:1.12}
+  .print-report{display:block!important;width:100%;font-size:12.2pt;line-height:1.12}
   .pr-head{text-align:center;margin:0 0 7px}
-  .pr-company{font-size:17pt;font-weight:bold;line-height:1.05}
-  .pr-sub{font-size:10.5pt;margin-top:2px}
-  .pr-place{font-size:10.5pt;margin-top:1px}
-  .pr-title{font-size:12.5pt;font-weight:bold;text-decoration:underline;margin-top:16px;line-height:1.15}
+  .pr-company{font-size:18pt;font-weight:bold;line-height:1.05}
+  .pr-sub{font-size:11.5pt;margin-top:2px}
+  .pr-place{font-size:11.5pt;margin-top:1px}
+  .pr-title{font-size:13.5pt;font-weight:bold;text-decoration:underline;margin-top:16px;line-height:1.15}
   .pr-table{width:100%;border-collapse:collapse;table-layout:fixed;border-radius:0!important;overflow:visible}
-  .pr-table th,.pr-table td{border:1px solid #222;padding:3.2px 5px;min-height:20px;height:auto;line-height:1.22;font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important;white-space:normal;overflow:visible;overflow-wrap:anywhere;word-break:normal}
+  .pr-table th,.pr-table td{font-size:12.2pt;border:1px solid #222;padding:2.6px 5px;min-height:20px;height:auto;line-height:1.22;font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important;white-space:normal;overflow:visible;overflow-wrap:anywhere;word-break:normal}
   .pr-table th{background:#dbe4f4!important;text-align:center;font-weight:bold;border-radius:0!important}
   .pr-table th:first-child,.pr-table th:last-child,.pr-table tr:first-child th{border-radius:0!important}
   .pr-table .no{width:6%;text-align:center}
@@ -88,11 +99,29 @@ td.value{font-weight:800;text-align:right;white-space:nowrap;font-variant-numeri
   .pr-table td.num{text-align:center}
   .pr-table .calc-row td{height:auto;min-height:20px}
   .pr-table .strong td{font-weight:bold}
-  .pr-note{margin-top:8px;font-size:10.5pt}
+  .pr-person-details{margin:12px 0 9px;font-size:12.2pt;line-height:1.5;text-align:left}
+  .pr-person-details .pr-detail-line{display:flex;align-items:baseline;gap:7px;break-inside:avoid}
+  .pr-person-details .pr-detail-label{min-width:190px;flex-shrink:0}
+  .pr-person-details .pr-detail-value{flex:1;overflow-wrap:anywhere}
+  .pr-note{margin-top:8px;font-size:11.5pt}
   .sign-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:20mm;row-gap:13mm;margin-top:17mm}
-  .sign{text-align:center;min-height:18mm;font-size:10.5pt;line-height:1.15}
+  .sign{text-align:center;min-height:18mm;font-size:11.5pt;line-height:1.15}
   .sign.right{text-align:center}
   .print-actions{display:none!important}
+}
+
+/* Print-only pagination adjustment: keep the complete report on one A4 page. */
+@media print {
+  @page { size: A4 portrait; margin: 12mm 9mm 6mm 9mm; }
+  html, body { margin: 0 !important; padding: 0 !important; }
+  .print-report { margin: 0 !important; padding: 0 !important; }
+  .pr-head { margin-bottom: 6px; }
+  .pr-title { margin-top: 12px; }
+  .pr-person-details { margin: 9px 0; line-height: 1.38; }
+  .pr-table th, .pr-table td { padding: 1.7px 4px; line-height: 1.15; min-height: 0; }
+  .pr-note { margin-top: 6px; }
+  .sign-grid { margin-top: 10mm; row-gap: 12mm; }
+  .sign { min-height: 11mm; line-height: 1.1; }
 }
 </style>
 </head>
@@ -112,12 +141,29 @@ td.value{font-weight:800;text-align:right;white-space:nowrap;font-variant-numeri
       <input id="name" type="text" placeholder="নাম লিখুন">
     </div>
     <div class="field">
-      <label>পদবি ও বর্তমান কর্মস্থল</label>
-      <input id="designation" type="text" placeholder="পদবি ও কর্মস্থল লিখুন">
+      <label for="designation">বর্তমান পদবি</label>
+      <select id="designation"><option value="">পদবি নির্বাচন করুন</option>
+        <option value="মহাব্যবস্থাপক">মহাব্যবস্থাপক</option>
+        <option value="উপ-মহাব্যবস্থাপক">উপ-মহাব্যবস্থাপক</option>
+        <option value="ব্যবস্থাপক">ব্যবস্থাপক</option>
+        <option value="উপ-ব্যবস্থাপক">উপ-ব্যবস্থাপক</option>
+        <option value="সহকারী প্রকৌশলী/সহকারী ব্যস্থাপক বা সমমান">সহকারী প্রকৌশলী/সহকারী ব্যস্থাপক বা সমমান</option>
+        <option value="উপসহকারী প্রকৌশলী/ সহকারী কর্মকর্তা বা সমমান">উপসহকারী প্রকৌশলী/ সহকারী কর্মকর্তা বা সমমান</option>
+        <option value="কম্পিউটার অপারেটর কাম অফিস অ্যাসিস্ট্যান্ট বা সমমান">কম্পিউটার অপারেটর কাম অফিস অ্যাসিস্ট্যান্ট বা সমমান</option>
+        <option value="টেকনিশিয়ান বা সমমান">টেকনিশিয়ান বা সমমান</option>
+        <option value="রেকর্ড কিপার বা সমমান">রেকর্ড কিপার বা সমমান</option>
+        <option value="জুনিয়র টেকনিশিয়ান বা সমমান">জুনিয়র টেকনিশিয়ান বা সমমান</option>
+        <option value="কুক বা সমমান">কুক বা সমমান</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="workplace">বর্তমান কর্মস্থল</label>
+      <input id="workplace" type="text" placeholder="কর্মস্থল লিখুন">
     </div>
     <div class="field">
       <label>বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ</label>
-      <input id="date" type="date">
+      <input id="date" type="text" inputmode="numeric" placeholder="১২-১২-২৫" maxlength="10" autocomplete="off">
+      <div class="help">দিন-মাস-বছর লিখুন (যেমন ১২-১২-২৫ অথবা ১২-১২-২০২৫)।</div>
     </div>
     <div class="field">
       <label>২০১৫ অনুযায়ী বেতন গ্রেড</label>
@@ -155,15 +201,19 @@ td.value{font-weight:800;text-align:right;white-space:nowrap;font-variant-numeri
     <div class="pr-title">জাতীয় বেতনস্কেল, ২০২৬-এর অনুসরণে পিজিসিএল-এ কার্যকর বেতনস্কেল, ২০২৬ অনুযায়ী বেতন নির্ধারণ প্রতিবেদন :</div>
   </div>
 
-  <table class="pr-table">
-    <thead><tr><th class="no">ক্রমিক</th><th class="desc">বিবরণ</th><th class="val">মান</th></tr></thead>
-    <tbody id="prBody">
-      <tr class="calc-row"><td class="num">১.</td><td>কর্মকর্তা/কর্মচারীর নাম:</td><td class="val" id="prName">—</td></tr>
-      <tr class="calc-row"><td class="num">২.</td><td>পদবি ও বর্তমান কর্মস্থল:</td><td class="val" id="prDesignation">—</td></tr>
-      <tr class="calc-row"><td class="num">৩.</td><td>বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ:</td><td class="val" id="prDate">—</td></tr>
-  </tbody></table>
+  <div class="pr-person-details">
+    <div class="pr-detail-line"><span class="pr-detail-label">কর্মকর্তা/কর্মচারীর নাম:</span><span class="pr-detail-value" id="prName">—</span></div>
+    <div class="pr-detail-line"><span class="pr-detail-label">বর্তমান পদবি:</span><span class="pr-detail-value" id="prDesignation">—</span></div>
+    <div class="pr-detail-line"><span class="pr-detail-label">বর্তমান কর্মস্থল:</span><span class="pr-detail-value" id="prWorkplace">—</span></div>
+    <div class="pr-detail-line"><span class="pr-detail-label">বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ:</span><span class="pr-detail-value" id="prDate">—</span></div>
+  </div>
 
-  <div class="pr-note">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</div>
+  <table class="pr-table">
+    <thead><tr><th class="no">ক্রমিক</th><th class="desc">বিবরণ</th><th class="val">পরিমান</th></tr></thead>
+    <tbody id="prBody"></tbody>
+  </table>
+
+  <div class="pr-note" style="margin-bottom: 25px;">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</div>
 
   <div class="sign-grid">
     <div class="sign">ব্যবস্থাপক (জেনারেল এডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
@@ -189,10 +239,20 @@ function fmt(n){
   if(n===null || n===undefined || Number.isNaN(n)) return "—";
   return Math.round(n).toLocaleString("en-US") + "/-";
 }
-function fmtDate(v){
-  if(!v) return "—";
-  const d=new Date(v+"T00:00:00");
-  return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear();
+function parseNumericDate(value){
+  const digits=String(value).trim().replace(/[০-৯]/g,ch=>String(ch.charCodeAt(0)-0x09E6));
+  const m=digits.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{2}|\d{4})$/);
+  if(!m) return null;
+  const day=Number(m[1]), month=Number(m[2]);
+  const year=m[3].length===2 ? 2000+Number(m[3]) : Number(m[3]);
+  const d=new Date(year,month-1,day);
+  if(d.getFullYear()!==year || d.getMonth()!==month-1 || d.getDate()!==day) return null;
+  return {day,month,year};
+}
+function fmtDate(value){
+  const d=parseNumericDate(value);
+  if(!d) return "—";
+  return String(d.day).padStart(2,"0")+"/"+String(d.month).padStart(2,"0")+"/"+d.year;
 }
 function scaleText(arr){return arr.map(x=>Number(x).toLocaleString("en-US")).join("-");}
 
@@ -231,12 +291,19 @@ function nextStep(steps, x){
 function calculate(){
   const name=document.getElementById("name").value.trim();
   const designation=document.getElementById("designation").value.trim();
+  const workplace=document.getElementById("workplace").value.trim();
   const date=document.getElementById("date").value;
   const grade=Number(gradeEl.value);
   const basic=Number(basicEl.value);
 
-  if(!name || !designation || !date || !grade || !basic){
+  if(!name || !designation || !workplace || !date || !grade || !basic){
     alert("দয়া করে সব প্রয়োজনীয় তথ্য পূরণ করুন।");
+    return;
+  }
+
+  if(!parseNumericDate(date)){
+    alert("সঠিক তারিখ লিখুন, যেমন ১২-১২-২৫ বা ১২-১২-২০২৫।");
+    document.getElementById("date").focus();
     return;
   }
 
@@ -275,7 +342,8 @@ function calculate(){
   document.getElementById("result").innerHTML=`
     <div class="person">
       <div><span>নাম</span><br><b>${esc(name)}</b></div>
-      <div><span>পদবি/কর্মস্থল</span><br><b>${esc(designation)}</b></div>
+      <div><span>বর্তমান পদবি</span><br><b>${esc(designation)}</b></div>
+      <div><span>বর্তমান কর্মস্থল</span><br><b>${esc(workplace)}</b></div>
       <div><span>নিয়োগ/পদোন্নতির তারিখ</span><br><b>${fmtDate(date)}</b></div>
       <div><span>২০১৫-এর গ্রেড</span><br><b>গ্রেড-${grade}</b></div>
     </div>
@@ -317,6 +385,7 @@ function calculate(){
   // Official A4 print report
   document.getElementById("prName").textContent = name;
   document.getElementById("prDesignation").textContent = designation;
+  document.getElementById("prWorkplace").textContent = workplace;
   document.getElementById("prDate").textContent = fmtDate(date);
   const rows = [
     ["৪.", "জাতীয় বেতনস্কেল-২০১৫ অনুযায়ী বর্তমানে প্রাপ্ত বেতনস্কেল (মূল বেতনস্কেল/টাইমস্কেল/সিলেকশন গ্রেড/উচ্চতর গ্রেড), গ্রেড-"+grade+":", scaleText(oldSteps)],
@@ -336,12 +405,12 @@ function calculate(){
     ["১৮.", "০১/০৭/২০২৭ তারিখে বার্ষিক বেতন বৃদ্ধিসহ ১০০% প্রাপ্য মূলবেতন:", fmt(nextAnnual)],
     ["১৯.", "পরবর্তী বার্ষিক বেতন বৃদ্ধির তারিখ:", "০১/০৭/২০২৮"]
   ];
-  document.getElementById("prBody").insertAdjacentHTML("beforeend", rows.map((r,i)=>
-    `<tr class="${[7,8,11,13,14].includes(i) ? 'strong':''}">
-      <td class="no" style="width:6%;text-align:center">${r[0]}</td>
+  document.getElementById("prBody").innerHTML = rows.map((r,i)=>
+    `<tr>
+      <td class="no" style="width:6%;text-align:center">${(i+1).toLocaleString('bn-BD')}.</td>
       <td class="desc" style="width:59%">${r[1]}</td>
       <td class="val" style="width:35%;text-align:right;background:#fff!important;color:#000">${r[2]}</td>
-    </tr>`).join(""));
+    </tr>`).join("");
 }
 function esc(s){
   return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
