@@ -99,6 +99,8 @@ th,td{font-size:16px}.big td{font-size:17px}
   .pr-table td.num{text-align:center}
   .pr-table .calc-row td{height:auto;min-height:20px}
   .pr-table .strong td{font-weight:bold}
+  /* Ensure the final printed table row has a solid black bottom border. */
+  .pr-table tbody tr:last-child td{border-bottom:1px solid #000!important}
   .pr-person-details{margin:12px 0 9px;font-size:12.2pt;line-height:1.5;text-align:left}
   .pr-person-details .pr-detail-line{display:flex;align-items:baseline;gap:7px;break-inside:avoid}
   .pr-person-details .pr-detail-label{min-width:190px;flex-shrink:0}
@@ -123,6 +125,33 @@ th,td{font-size:16px}.big td{font-size:17px}
   .sign-grid { margin-top: 10mm; row-gap: 12mm; }
   .sign { min-height: 11mm; line-height: 1.1; }
 }
+/* Updated DOC has 18 calculation rows: print-only page fit. */
+@media print {
+  .print-report { zoom: 0.87; }
+  .sign-grid { break-inside: avoid; }
+}
+
+/* Screen-only: preserve usable widths and wrap long salary-scale values. */
+@media screen {
+  #result { min-width: 0; }
+  #result > table { width: 100%; table-layout: fixed; border-collapse: collapse; }
+  #result > table th, #result > table td {
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    white-space: normal;
+    vertical-align: top;
+  }
+  #result > table th:nth-child(1), #result > table td:nth-child(1) { width: 9%; text-align: center; }
+  #result > table th:nth-child(2), #result > table td:nth-child(2) { width: 55%; }
+  #result > table th:nth-child(3), #result > table td:nth-child(3) { width: 36%; text-align: right; }
+  #result > table td.value { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  .grid { grid-template-columns: minmax(300px, 390px) minmax(0, 1fr); }
+  .grid > section { min-width: 0; }
+}
+@media screen and (max-width: 900px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+}
 </style>
 </head>
 <body>
@@ -141,19 +170,34 @@ th,td{font-size:16px}.big td{font-size:17px}
       <input id="name" type="text" placeholder="নাম লিখুন">
     </div>
     <div class="field">
+      <label for="employeeId">আইডি নম্বর</label>
+      <input id="employeeId" type="text" placeholder="আইডি নম্বর লিখুন" autocomplete="off">
+    </div>
+    <div class="field">
       <label for="designation">বর্তমান পদবি</label>
       <select id="designation"><option value="">পদবি নির্বাচন করুন</option>
+        <option value="ঊর্ধ্বতন মহাব্যবস্থাপক">ঊর্ধ্বতন মহাব্যবস্থাপক</option>
+        <option value="ব্যবস্থাপনা পরিচালক">ব্যবস্থাপনা পরিচালক</option>
         <option value="মহাব্যবস্থাপক">মহাব্যবস্থাপক</option>
         <option value="উপ-মহাব্যবস্থাপক">উপ-মহাব্যবস্থাপক</option>
         <option value="ব্যবস্থাপক">ব্যবস্থাপক</option>
         <option value="উপ-ব্যবস্থাপক">উপ-ব্যবস্থাপক</option>
-        <option value="সহকারী প্রকৌশলী/সহকারী ব্যস্থাপক বা সমমান">সহকারী প্রকৌশলী/সহকারী ব্যস্থাপক বা সমমান</option>
-        <option value="উপসহকারী প্রকৌশলী/ সহকারী কর্মকর্তা বা সমমান">উপসহকারী প্রকৌশলী/ সহকারী কর্মকর্তা বা সমমান</option>
-        <option value="কম্পিউটার অপারেটর কাম অফিস অ্যাসিস্ট্যান্ট বা সমমান">কম্পিউটার অপারেটর কাম অফিস অ্যাসিস্ট্যান্ট বা সমমান</option>
-        <option value="টেকনিশিয়ান বা সমমান">টেকনিশিয়ান বা সমমান</option>
-        <option value="রেকর্ড কিপার বা সমমান">রেকর্ড কিপার বা সমমান</option>
-        <option value="জুনিয়র টেকনিশিয়ান বা সমমান">জুনিয়র টেকনিশিয়ান বা সমমান</option>
-        <option value="কুক বা সমমান">কুক বা সমমান</option>
+        <option value="সহকারী প্রকৌশলী">সহকারী প্রকৌশলী</option>
+        <option value="সহকারী ব্যবস্থাপক">সহকারী ব্যবস্থাপক</option>
+        <option value="সহকারী কারিগরি কর্মকর্তা">সহকারী কারিগরি কর্মকর্তা</option>
+        <option value="মেডিক্যাল অফিসার">মেডিক্যাল অফিসার</option>
+        <option value="উপ-সহকারী প্রকৌশলী">উপ-সহকারী প্রকৌশলী</option>
+        <option value="সহকারী কর্মকর্তা">সহকারী কর্মকর্তা</option>
+        <option value="উপ-সহকারী কারিগরি কর্মকর্তা">উপ-সহকারী কারিগরি কর্মকর্তা</option>
+        <option value="কম্পিউটার অপারেটর কাম অফিস অ্যাসিস্ট্যান্ট">কম্পিউটার অপারেটর কাম অফিস অ্যাসিস্ট্যান্ট</option>
+        <option value="মেডিক্যাল অ্যাসিস্ট্যান্ট">মেডিক্যাল অ্যাসিস্ট্যান্ট</option>
+        <option value="টেকনিশিয়ান">টেকনিশিয়ান</option>
+        <option value="জুনিয়র টেকনিশিয়ান">জুনিয়র টেকনিশিয়ান</option>
+        <option value="রেকর্ড কিপার">রেকর্ড কিপার</option>
+        <option value="পাম্প অপারেটর">পাম্প অপারেটর</option>
+        <option value="জেনারেটর অপারেটর">জেনারেটর অপারেটর</option>
+        <option value="জুনিয়র ক্লার্ক">জুনিয়র ক্লার্ক</option>
+        <option value="বাবুর্চি">বাবুর্চি</option>
       </select>
     </div>
     <div class="field">
@@ -203,6 +247,7 @@ th,td{font-size:16px}.big td{font-size:17px}
 
   <div class="pr-person-details">
     <div class="pr-detail-line"><span class="pr-detail-label">কর্মকর্তা/কর্মচারীর নাম:</span><span class="pr-detail-value" id="prName">—</span></div>
+    <div class="pr-detail-line"><span class="pr-detail-label">আইডি নম্বর:</span><span class="pr-detail-value" id="prEmployeeId">—</span></div>
     <div class="pr-detail-line"><span class="pr-detail-label">বর্তমান পদবি:</span><span class="pr-detail-value" id="prDesignation">—</span></div>
     <div class="pr-detail-line"><span class="pr-detail-label">বর্তমান কর্মস্থল:</span><span class="pr-detail-value" id="prWorkplace">—</span></div>
     <div class="pr-detail-line"><span class="pr-detail-label">বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ:</span><span class="pr-detail-value" id="prDate">—</span></div>
@@ -216,10 +261,10 @@ th,td{font-size:16px}.big td{font-size:17px}
   <div class="pr-note" style="margin-bottom: 25px;">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</div>
 
   <div class="sign-grid">
-    <div class="sign">ব্যবস্থাপক (জেনারেল এডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign">ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign">উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign">উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">(মোঃ মোস্তাফিজুর রহমান)<br>ব্যবস্থাপক (জেনারেল এ্যাডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">(মুহাম্মদ শফিউল্লাহ)<br>ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">কোনো কর্মকর্তা পদায়িত নেই<br>(…)<br>উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign">(তৌফিক আল মামুন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
   </div>
 </div>
 
@@ -290,13 +335,14 @@ function nextStep(steps, x){
 
 function calculate(){
   const name=document.getElementById("name").value.trim();
+  const employeeId=document.getElementById("employeeId").value.trim();
   const designation=document.getElementById("designation").value.trim();
   const workplace=document.getElementById("workplace").value.trim();
   const date=document.getElementById("date").value;
   const grade=Number(gradeEl.value);
   const basic=Number(basicEl.value);
 
-  if(!name || !designation || !workplace || !date || !grade || !basic){
+  if(!name || !employeeId || !designation || !workplace || !date || !grade || !basic){
     alert("দয়া করে সব প্রয়োজনীয় তথ্য পূরণ করুন।");
     return;
   }
@@ -330,87 +376,63 @@ function calculate(){
   const provisional=difference+start2026;
   const matchedStep=firstGE(newSteps,provisional);
   const annualStep=nextStep(newSteps,matchedStep);
-  const increment=annualStep-basic;
+  const annualIncrement=annualStep-matchedStep;
+  const totalIncrease=matchedStep-basic;
   const pct40=grade<=9 ? 0.40 : 0.50;
-  const interim40=increment*pct40;
-  const salary40=basic+interim40;
+  const interim40=totalIncrease*pct40;
+  const salary40=basic+annualIncrement+interim40;
   const pct70=grade<=9 ? 0.70 : 0.75;
-  const interim70=increment*pct70;
-  const salary70=basic+interim70;
+  const interim70=totalIncrease*pct70;
+  const salary70=basic+annualIncrement+interim70;
   const nextAnnual=nextStep(newSteps,annualStep);
+
+  // বিবরণে ব্যবহৃত সূত্রের নম্বর প্রদর্শিত ১–১৮ ক্রমিকের সঙ্গে সামঞ্জস্যপূর্ণ।
+  const pctFirst=grade<=9 ? 40 : 50;
+  const pctSecond=grade<=9 ? 70 : 75;
+  const rows = [
+    ["জাতীয় বেতনস্কেল-২০১৫ অনুযায়ী বর্তমানে প্রাপ্ত বেতনস্কেল (মূল বেতনস্কেল/টাইমস্কেল/সিলেকশন গ্রেড/উচ্চতর গ্রেড) গ্রেড-"+grade, scaleText(oldSteps)],
+    ["জাতীয় বেতনস্কেল, ২০১৫ অনুযায়ী ৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতন", fmt(basic)],
+    ["জাতীয় বেতনস্কেল-২০১৫ অনুযায়ী প্রাপ্ত বেতনস্কেলের প্রারম্ভিক ধাপ", fmt(start2015)],
+    ["পার্থক্য (২-৩)", fmt(difference)],
+    ["জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী অনুরূপ স্কেল", scaleText(newSteps)],
+    ["জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী প্রাপ্য গ্রেডের প্রারম্ভিক ধাপ", fmt(start2026)],
+    ["জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী ০১/০৭/২০২৬ তারিখে মূলবেতন (৪+৬)", fmt(provisional)],
+    ["জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী ধাপ মিলিকরণের পর ০১/০৭/২০২৬ তারিখে নির্ধারিত ধাপ", fmt(matchedStep)],
+    ["জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী ০১/০৭/২০২৬ তারিখে বার্ষিক বেতনবৃদ্ধিসহ নির্ধারিত মূলবেতন", fmt(annualStep)],
+    ["বার্ষিক বেতনবৃদ্ধির পরিমাণ (৯-৮)", fmt(annualIncrement)],
+    ["০১/০৭/২০২৬ তারিখে মোট বেতন বৃদ্ধি (৮-২)", fmt(totalIncrease)],
+    ["১১ নং ক্রমিকে উল্লিখিত বেতন বৃদ্ধির "+pctFirst+"% ("+(grade<=9?"১ম-৯ম":"১০ম-২০তম")+" গ্রেডের জন্য)", fmt(interim40)],
+    ["বেতন বৃদ্ধির "+pctFirst+"%, বার্ষিক বেতন বৃদ্ধির পরিমাণ ও ৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতনসহ ০১/০৭/২০২৬ হতে ৩১/১২/২০২৬ তারিখ পর্যন্ত প্রাপ্য মূলবেতন (২+১০+১২)", fmt(salary40)],
+    ["১১ নং ক্রমিকে উল্লিখিত বেতন বৃদ্ধির "+pctSecond+"% ("+(grade<=9?"১ম-৯ম":"১০ম-২০তম")+" গ্রেডের জন্য)", fmt(interim70)],
+    ["বেতন বৃদ্ধির "+pctSecond+"%, বার্ষিক বেতন বৃদ্ধির পরিমাণ ও ৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতনসহ ০১/০১/২০২৭ হতে ৩০/০৬/২০২৭ তারিখ পর্যন্ত প্রাপ্য মূলবেতন (২+১০+১৪)", fmt(salary70)],
+    ["০১/০৭/২০২৭ তারিখে ১০০%সহ প্রাপ্য মূলবেতন (২+১০+১১)", fmt(basic+annualIncrement+totalIncrease)],
+    ["০১/০৭/২০২৭ তারিখে বার্ষিক বেতন বৃদ্ধিসহ প্রাপ্য মূলবেতন", fmt(nextAnnual)],
+    ["পরবর্তী বার্ষিক বেতন বৃদ্ধির তারিখ", "০১/০৭/২০২৮"]
+  ];
 
   document.getElementById("result").innerHTML=`
     <div class="person">
       <div><span>নাম</span><br><b>${esc(name)}</b></div>
+      <div><span>আইডি নম্বর</span><br><b>${esc(employeeId)}</b></div>
       <div><span>বর্তমান পদবি</span><br><b>${esc(designation)}</b></div>
       <div><span>বর্তমান কর্মস্থল</span><br><b>${esc(workplace)}</b></div>
       <div><span>নিয়োগ/পদোন্নতির তারিখ</span><br><b>${fmtDate(date)}</b></div>
       <div><span>২০১৫-এর গ্রেড</span><br><b>গ্রেড-${grade}</b></div>
     </div>
-
-    <div class="scale-box">
-      <div class="label">নির্বাচিত ২০১৫ বেতন স্কেল</div>
-      <div class="scale">${esc(DATA.s2015[grade].scale)}</div>
-    </div>
-
     <table>
       <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th style="text-align:right">ফলাফল</th></tr></thead>
-      <tbody>
-        <tr><td>৫</td><td>৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতন</td><td class="value">${fmt(basic)}</td></tr>
-        <tr><td>৬</td><td>২০১৫ বেতনস্কেলের প্রারম্ভিক ধাপ</td><td class="value">${fmt(start2015)}</td></tr>
-        <tr><td>৭</td><td>পার্থক্য (৫−৬)</td><td class="value">${fmt(difference)}</td></tr>
-        <tr class="emphasis"><td>৮</td><td>অনুরূপ ২০২৬ বেতনস্কেল (সমতুল্য গ্রেড)</td><td class="value">গ্রেড-${grade}</td></tr>
-        <tr><td>৯</td><td>২০২৬ বেতনস্কেলের প্রারম্ভিক ধাপ</td><td class="value">${fmt(start2026)}</td></tr>
-        <tr><td>১০</td><td>০১/০৭/২০২৬ তারিখে মূলবেতন (৭+৯)</td><td class="value">${fmt(provisional)}</td></tr>
-        <tr><td>১১</td><td>ধাপ মিলকরণের পর ০১/০৭/২০২৬ তারিখে প্রাপ্য ধাপ</td><td class="value">${fmt(matchedStep)}</td></tr>
-        <tr class="big"><td>১২</td><td>০১/০৭/২০২৬ তারিখে বার্ষিক বেতনবৃদ্ধিসহ মূলবেতন</td><td class="value">${fmt(annualStep)}</td></tr>
-        <tr class="big"><td>১৩</td><td>০১/০৭/২০২৬ তারিখে বেতন বৃদ্ধি (১২−৫)</td><td class="value">${fmt(increment)}</td></tr>
-        <tr><td>১৪</td><td>বেতন বৃদ্ধির ${grade<=9?40:50}%</td><td class="value">${fmt(interim40)}</td></tr>
-        <tr class="emphasis"><td>১৫</td><td>০১/০৭/২০২৬–৩১/১২/২০২৬ পর্যন্ত ${grade<=9?40:50}%সহ প্রাপ্য মূলবেতন</td><td class="value">${fmt(salary40)}</td></tr>
-        <tr><td>১৬</td><td>বেতন বৃদ্ধির ${grade<=9?70:75}%</td><td class="value">${fmt(interim70)}</td></tr>
-        <tr class="emphasis"><td>১৭</td><td>০১/০১/২০২৭–৩০/০৬/২০২৭ পর্যন্ত ${grade<=9?70:75}%সহ প্রাপ্য মূলবেতন</td><td class="value">${fmt(salary70)}</td></tr>
-        <tr class="big"><td>১৮</td><td>০১/০৭/২০২৭ তারিখে বার্ষিক বেতন বৃদ্ধিসহ ১০০% প্রাপ্য মূলবেতন</td><td class="value">${fmt(nextAnnual)}</td></tr>
-        <tr><td>১৯</td><td>পরবর্তী বার্ষিক বেতন বৃদ্ধির তারিখ</td><td class="value">০১/০৭/২০২৮</td></tr>
-      </tbody>
+      <tbody>${rows.map((r,i)=>`<tr><td>${(i+1).toLocaleString('bn-BD')}</td><td>${esc(r[0])}</td><td class="value">${esc(r[1])}</td></tr>`).join('')}</tbody>
     </table>
+    <div class="actions"><button class="secondary" onclick="window.print()">🖨 প্রতিবেদন প্রিন্ট</button></div>
+    <div class="note">হিসাব টেবিলের ১–১৮ ক্রমিক অনুযায়ী প্রদর্শিত সূত্র অনুসরণ করে। ১ম–৯ম গ্রেডে ৪০% ও ৭০%, ১০ম–২০তম গ্রেডে ৫০% ও ৭৫% অপরিবর্তিত।</div>`;
 
-    <div class="actions">
-      <button class="secondary" onclick="window.print()">🖨 প্রতিবেদন প্রিন্ট</button>
-    </div>
-    <div class="note">
-      <b>নোট:</b> গণনার logic মূল Excel-এর C12–C25 সূত্র অনুসরণ করে তৈরি করা হয়েছে।
-      ১ম–৯ম গ্রেডে ৪০% ও ৭০%, এবং ১০ম–২০তম গ্রেডে ৫০% ও ৭৫% হারে গণনার logic অপরিবর্তিত রাখা হয়েছে।
-    </div>`;
-
-  // Official A4 print report
-  document.getElementById("prName").textContent = name;
-  document.getElementById("prDesignation").textContent = designation;
-  document.getElementById("prWorkplace").textContent = workplace;
-  document.getElementById("prDate").textContent = fmtDate(date);
-  const rows = [
-    ["৪.", "জাতীয় বেতনস্কেল-২০১৫ অনুযায়ী বর্তমানে প্রাপ্ত বেতনস্কেল (মূল বেতনস্কেল/টাইমস্কেল/সিলেকশন গ্রেড/উচ্চতর গ্রেড), গ্রেড-"+grade+":", scaleText(oldSteps)],
-    ["৫.", "৩০/০৬/২০২৬ তারিখে প্রাপ্ত মূলবেতন:", fmt(basic)],
-    ["৬.", "২০১৫ বেতনস্কেলের প্রারম্ভিক ধাপ:", fmt(start2015)],
-    ["৭.", "পার্থক্য (৫−৬):", fmt(difference)],
-    ["৮.", "জাতীয় বেতনস্কেল-২০২৬ অনুযায়ী অনুরূপ বেতনস্কেল (গ্রেড-"+grade+"):", scaleText(newSteps)],
-    ["৯.", "২০২৬ বেতনস্কেলের প্রারম্ভিক ধাপ:", fmt(start2026)],
-    ["১০.", "০১/০৭/২০২৬ তারিখে মূলবেতন (৭+৯):", fmt(provisional)],
-    ["১১.", "ধাপ মিলকরণের পর ০১/০৭/২০২৬ তারিখে প্রাপ্য ধাপ:", fmt(matchedStep)],
-    ["১২.", "০১/০৭/২০২৬ তারিখে বার্ষিক বেতনবৃদ্ধিসহ মূলবেতন:", fmt(annualStep)],
-    ["১৩.", "০১/০৭/২০২৬ তারিখে বেতন বৃদ্ধি (১২−৫):", fmt(increment)],
-    ["১৪.", "বেতন বৃদ্ধির "+(grade<=9?40:50)+"%:", fmt(interim40)],
-    ["১৫.", "০১/০৭/২০২৬–৩১/১২/২০২৬ পর্যন্ত "+(grade<=9?40:50)+"%সহ প্রাপ্য মূলবেতন:", fmt(salary40)],
-    ["১৬.", "বেতন বৃদ্ধির "+(grade<=9?70:75)+"%:", fmt(interim70)],
-    ["১৭.", "০১/০১/২০২৭–৩০/০৬/২০২৭ পর্যন্ত "+(grade<=9?70:75)+"%সহ প্রাপ্য মূলবেতন:", fmt(salary70)],
-    ["১৮.", "০১/০৭/২০২৭ তারিখে বার্ষিক বেতন বৃদ্ধিসহ ১০০% প্রাপ্য মূলবেতন:", fmt(nextAnnual)],
-    ["১৯.", "পরবর্তী বার্ষিক বেতন বৃদ্ধির তারিখ:", "০১/০৭/২০২৮"]
-  ];
-  document.getElementById("prBody").innerHTML = rows.map((r,i)=>
-    `<tr>
-      <td class="no" style="width:6%;text-align:center">${(i+1).toLocaleString('bn-BD')}.</td>
-      <td class="desc" style="width:59%">${r[1]}</td>
-      <td class="val" style="width:35%;text-align:right;background:#fff!important;color:#000">${r[2]}</td>
-    </tr>`).join("");
+  document.getElementById("prName").textContent=name;
+  document.getElementById("prEmployeeId").textContent=employeeId;
+  document.getElementById("prDesignation").textContent=designation;
+  document.getElementById("prWorkplace").textContent=workplace;
+  document.getElementById("prDate").textContent=fmtDate(date);
+  document.getElementById("prBody").innerHTML=rows.map((r,i)=>
+    `<tr><td class="no">${(i+1).toLocaleString('bn-BD')}.</td><td class="desc">${esc(r[0])}</td><td class="val">${esc(r[1])}</td></tr>`).join("");
 }
 function esc(s){
   return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
