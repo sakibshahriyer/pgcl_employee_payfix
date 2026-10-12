@@ -157,7 +157,7 @@ th,td{font-size:16px}.big td{font-size:17px}
 <body>
 <header><div class="header">
   <div><h1>বেতন নির্ধারণ</h1><div class="subtitle">২০১৫-এর প্রাপ্ত বেতন থেকে ২০২৬-এর প্রাপ্য বেতন নির্ধারণ</div></div>
-  <div class="badge">Interactive Pay Fixation</div>
+  <div class="badge">Pay Fixation 2026</div>
 </div></header>
 
 <main>
@@ -242,7 +242,7 @@ th,td{font-size:16px}.big td{font-size:17px}
     <div class="pr-company">পশ্চিমাঞ্চল গ্যাস কোম্পানী লিমিটেড</div>
     <div class="pr-sub">(পেট্রোবাংলার একটি কোম্পানি)</div>
     <div class="pr-place">নলকা, সিরাজগঞ্জ।</div>
-    <div class="pr-title">জাতীয় বেতনস্কেল, ২০২৬-এর অনুসরণে পিজিসিএল-এ কার্যকর বেতনস্কেল, ২০২৬ অনুযায়ী বেতন নির্ধারণ প্রতিবেদন :</div>
+    <div class="pr-title">জাতীয় বেতনস্কেল, ২০২৬-এর অনুরূপ পিজিসিএল-এ কার্যকর বেতনস্কেল, ২০২৬ অনুযায়ী বেতন নির্ধারণ প্রতিবেদন :</div>
   </div>
 
   <div class="pr-person-details">
@@ -258,13 +258,13 @@ th,td{font-size:16px}.big td{font-size:17px}
     <tbody id="prBody"></tbody>
   </table>
 
-  <div class="pr-note" style="margin-bottom: 25px;">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</div>
+  <div class="pr-note" style="margin-bottom: 25px;"><br>উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</div>
 
   <div class="sign-grid">
-    <div class="sign">(মোঃ মোস্তাফিজুর রহমান)<br>ব্যবস্থাপক (জেনারেল এ্যাডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign">(মুহাম্মদ শফিউল্লাহ)<br>ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign">কোনো কর্মকর্তা পদায়িত নেই<br>(…)<br>উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign">(তৌফিক আল মামুন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign"><br>(মোঃ মোস্তাফিজুর রহমান)<br>ব্যবস্থাপক (জেনারেল এ্যাডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign"><br>(মুহাম্মদ শফিউল্লাহ)<br>ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign"><br>কোনো কর্মকর্তা পদায়িত নেই<br>(…)<br>উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign"><br>(তৌফিক আল মমিন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
   </div>
 </div>
 
@@ -299,7 +299,7 @@ function fmtDate(value){
   if(!d) return "—";
   return String(d.day).padStart(2,"0")+"/"+String(d.month).padStart(2,"0")+"/"+d.year;
 }
-function scaleText(arr){return arr.map(x=>Number(x).toLocaleString("en-US")).join("-");}
+function scaleText(arr){return arr.map(x=>String(x)).join("-");}
 
 gradeEl.addEventListener("change",()=>{
   const g=Number(gradeEl.value);
