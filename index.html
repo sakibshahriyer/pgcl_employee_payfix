@@ -152,6 +152,181 @@ th,td{font-size:16px}.big td{font-size:17px}
 @media screen and (max-width: 900px) {
   .grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Separate office-order print layout; existing pay-fixation report is untouched. */
+.office-order { display:none; }
+@media screen {
+  #result .actions { flex-wrap:wrap; }
+}
+@media print {
+  body.office-print .print-report { display:none!important; }
+  body.office-print .office-order {
+    display:block!important;
+    font-family:'NikoshBan','Nikosh','Noto Sans Bengali','Nirmala UI',sans-serif!important;
+    font-size:12pt;
+    line-height:1.28;
+    color:#000;
+  }
+  body.office-print .office-top-pad { height:31mm; }
+  body.office-print .office-refdate { display:flex; justify-content:space-between; margin-bottom:7mm; font-size:11.5pt; }
+  body.office-print .office-heading { text-align:center; font-size:15pt; font-weight:bold; margin:0 0 6mm; }
+  body.office-print .office-intro { text-align:justify; margin:0 0 5mm; }
+  body.office-print .office-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+  body.office-print .office-table th,
+  body.office-print .office-table td {
+    border:1px solid #000!important;
+    padding:2.3px 4px;
+    font-size:11pt;
+    line-height:1.15;
+    vertical-align:top;
+    overflow-wrap:anywhere;
+    word-break:normal;
+    color:#000!important;
+    background:#fff!important;
+  }
+  body.office-print .office-table th { text-align:center; font-weight:bold; }
+  body.office-print .office-table th:nth-child(1),body.office-print .office-table td:nth-child(1) { width:7%; text-align:center; }
+  body.office-print .office-table th:nth-child(2),body.office-print .office-table td:nth-child(2) { width:58%; }
+  body.office-print .office-table th:nth-child(3),body.office-print .office-table td:nth-child(3) { width:35%; text-align:right; }
+  body.office-print .office-table thead { display:table-header-group; }
+  body.office-print .office-table tr { break-inside:avoid; page-break-inside:avoid; }
+  body.office-print .office-note { margin-top:4mm; font-size:11pt; }
+  body.office-print .office-sign { text-align:right; margin-top:24mm; margin-bottom:8mm; break-inside:avoid; page-break-inside:avoid; }
+  body.office-print .office-sign span { display:inline-block; min-width:65mm; text-align:center; }
+  body.office-print .office-distribution { margin-top:4mm; font-size:11.5pt; break-inside:avoid; }
+  body.office-print .office-copy { margin-top:7mm; font-size:11.5pt; break-inside:avoid; }
+  body.office-print .office-copy ol { margin:2mm 0 0; padding-left:8mm; }
+  body.office-print .office-copy li { padding-left:1mm; }
+}
+
+/* One-page office order on pre-printed company letterhead; other prints untouched. */
+@media print {
+  body.office-print .office-order {
+    zoom: 1.0;
+    font-size: 11pt;
+    line-height: 1.12;
+  }
+  body.office-print .office-top-pad { height: 29mm; }
+  body.office-print .office-refdate { margin-bottom: 3mm; font-size: 10.5pt; }
+  body.office-print .office-heading { font-size: 14pt; margin: 0 0 3mm; }
+  body.office-print .office-intro { margin: 0 0 3mm; font-size: 11pt; line-height: 1.15; }
+  body.office-print .office-table th,
+  body.office-print .office-table td { font-size: 9.5pt; padding: 1.1px 3px; line-height: 1.07; }
+  body.office-print .office-note { margin-top: 2mm; font-size: 10pt; line-height: 1.12; }
+  body.office-print .office-sign { text-align:left; margin-top: 13mm; margin-bottom: 3mm; }
+  body.office-print .office-sign span { text-align:left; min-width: 0; display:block; }
+  body.office-print .office-distribution { margin-top: 2mm; font-size: 10pt; line-height:1.12; }
+  body.office-print .office-copy { margin-top: 2.5mm; font-size: 10pt; line-height:1.12; }
+  body.office-print .office-copy ol { margin-top:1mm; }
+}
+
+/* Office-order print only: Letter stationery, balanced page gutters, larger non-table text. */
+@page pgclOfficeLetter { size: letter portrait; margin: 9mm 11mm 10mm 11mm; }
+@media print {
+  body.office-print .office-order {
+    page: pgclOfficeLetter;
+    box-sizing: border-box;
+    padding-left: 3mm;
+    padding-right: 3mm;
+  }
+  body.office-print .office-top-pad { height: 25mm; }
+  body.office-print .office-refdate { font-size: 11pt; margin-bottom: 2.3mm; }
+  body.office-print .office-heading { font-size: 15pt; margin-bottom: 2.5mm; }
+  body.office-print .office-intro { font-size: 12pt; line-height: 1.12; margin-bottom: 2.5mm; }
+  body.office-print .office-table { width: 100%; margin: 2mm auto 2mm; }
+  body.office-print .office-table th,
+  body.office-print .office-table td { font-size: 9.5pt; padding: 0.9px 3px; line-height: 1.06; }
+  body.office-print .office-note { font-size: 11pt; line-height: 1.1; margin-top: 2mm; }
+  body.office-print .office-sign { margin-top: 9mm; margin-bottom: 2mm; font-size: 12pt; }
+  body.office-print .office-distribution { font-size: 11pt; line-height: 1.1; margin-top: 1.8mm; }
+  body.office-print .office-copy { font-size: 11pt; line-height: 1.1; margin-top: 2mm; }
+  body.office-print .office-copy ol { margin-top: 0.7mm; }
+}
+
+/* Office order ONLY: safely inset all four table borders and enlarge signature space. */
+@page pgclOfficeLetter { size: letter portrait; margin: 9mm 13mm 10mm 13mm; }
+@media print {
+  body.office-print .office-order { padding-left: 2mm; padding-right: 2mm; }
+  body.office-print .office-table {
+    box-sizing: border-box;
+    width: calc(100% - 8mm) !important;
+    margin: 2mm 4mm 2mm !important;
+    border: 1px solid #000 !important;
+    border-collapse: collapse !important;
+    table-layout: fixed;
+  }
+  body.office-print .office-table th,
+  body.office-print .office-table td {
+    border: 1px solid #000 !important;
+    padding: 0.75px 2.5px;
+    font-size: 9.3pt;
+    line-height: 1.045;
+  }
+  body.office-print .office-table tbody tr:last-child td {
+    border-bottom: 1px solid #000 !important;
+  }
+  body.office-print .office-sign { margin-top: 13.5mm !important; }
+}
+
+/* Requested office-order-only typography and sharp, fully printed table borders. */
+@media print {
+  body.office-print .office-refdate { font-size: 12pt !important; }
+  body.office-print .office-heading { font-size: 15pt !important; }
+  body.office-print .office-intro { font-size: 12pt !important; }
+  body.office-print .office-table {
+    border: 1.5px solid #000 !important;
+    border-radius: 0 !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    overflow: visible !important;
+    clip-path: none !important;
+    box-shadow: none !important;
+  }
+  body.office-print .office-table th,
+  body.office-print .office-table td {
+    border: 1px solid #000 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    font-size: 10pt !important;
+  }
+  body.office-print .office-table th { font-size: 11pt !important; }
+  body.office-print .office-table th,
+  body.office-print .office-table td { padding: 0.35px 2.2px !important; line-height: 1.0 !important; }
+  body.office-print .office-refdate { margin-bottom: 1.4mm !important; }
+  body.office-print .office-heading { margin-bottom: 1.6mm !important; }
+  body.office-print .office-intro { margin-bottom: 1.6mm !important; line-height: 1.07 !important; }
+  body.office-print .office-table { margin-top: 1mm !important; margin-bottom: 1mm !important; }
+  body.office-print .office-note { margin-top: 1mm !important; line-height: 1.04 !important; }
+  body.office-print .office-distribution { margin-top: 1mm !important; line-height: 1.05 !important; }
+  body.office-print .office-copy { margin-top: 1mm !important; line-height: 1.05 !important; }
+  body.office-print .office-table tr:first-child th { border-top: 1.5px solid #000 !important; }
+  body.office-print .office-table th:first-child,
+  body.office-print .office-table td:first-child { border-left: 1.5px solid #000 !important; }
+  body.office-print .office-table th:last-child,
+  body.office-print .office-table td:last-child { border-right: 1.5px solid #000 !important; }
+  body.office-print .office-table tbody tr:last-child td { border-bottom: 1.5px solid #000 !important; }
+  body.office-print .office-note { font-size: 12pt !important; }
+  body.office-print .office-sign { font-size: 12pt !important; }
+  body.office-print .office-distribution { font-size: 12pt !important; }
+  body.office-print .office-copy { font-size: 12pt !important; }
+}
+
+/* Screen-only presentation: separated printing actions and prominent access notice. */
+@media screen {
+  #result .actions { justify-content:space-between; gap:14px; }
+  #result .office-access-note {
+    font-size:17px; line-height:1.5; color:#7b312b;
+    background:#fff5ef; border-left:4px solid #b75c38;
+    border-radius:5px; padding:11px 14px; margin-top:15px;
+  }
+}
+/* Office-order-only: widen the table slightly, keeping a 2mm inset on either side. */
+@media print {
+  body.office-print .office-table {
+    width:calc(100% - 4mm) !important;
+    margin-left:2mm !important; margin-right:2mm !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -196,8 +371,8 @@ th,td{font-size:16px}.big td{font-size:17px}
         <option value="রেকর্ড কিপার">রেকর্ড কিপার</option>
         <option value="পাম্প অপারেটর">পাম্প অপারেটর</option>
         <option value="জেনারেটর অপারেটর">জেনারেটর অপারেটর</option>
-        <option value="জুনিয়র ক্লার্ক">জুনিয়র ক্লার্ক</option>
-        <option value="বাবুর্চি">বাবুর্চি</option>
+        <option value="ডেসপাস জুনিয়র ক্লার্ক">ডেসপাস জুনিয়র ক্লার্ক</option>
+        <option value="কুক">কুক</option>
       </select>
     </div>
     <div class="field">
@@ -268,6 +443,30 @@ th,td{font-size:16px}.big td{font-size:17px}
   </div>
 </div>
 
+
+<!-- Separate print-only draft, intended for PGCL preprinted letterhead. -->
+<section class="office-order" id="officeOrder">
+  <div class="office-top-pad"></div>
+  <div class="office-refdate"><span>সূত্র নং: .............................................</span><span>তারিখ: ........................</span></div>
+  <div class="office-heading">অফিস আদেশ</div>
+  <p class="office-intro">পিজিসিএল-এর ৪০০তম বোর্ড সভার অনুমোদনক্রমে জাতীয় বেতনস্কেল-২০২৬-এর অনুরূপ বেতনস্কেলে জনাব <span id="orderName"></span>, <span id="orderDesignation"></span>-এর <span id="orderScale"></span> টাকা বেতনস্কেলে নিম্নরূপ বেতন নির্ধারণ করা হলো:</p>
+  <table class="office-table">
+    <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th>পরিমান</th></tr></thead>
+    <tbody id="orderBody"></tbody>
+  </table>
+  <p class="office-note">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</p>
+  <div class="office-sign"><span>(মো: সাহিনুর আলম)<br>মহাব্যবস্থাপক (প্রশাসন)</span></div>
+  <div class="office-distribution"><b>বিতরণ:</b><div id="orderDistribution"></div></div>
+  <div class="office-copy"><b>অনুলিপি:</b>
+    <ol>
+      <li>মহাব্যবস্থাপক (অর্থ)</li>
+      <li>উপ-মহাব্যবস্থাপক (ফিন্যান্স)</li>
+      <li>উপ-মহাব্যবস্থাপক (এ্যাকাউন্টস)</li>
+      <li>উপ-ব্যবস্থাপক (সমন্বয়), ব্যবস্থাপনা পরিচালক, পিজিসিএল</li>
+      <li>অফিস কপি।</li>
+    </ol>
+  </div>
+</section>
 
 <script>
 const DATA = {"s2015":{"1":{"steps":[78000],"scale":"78000"},"2":{"steps":[66000,68480,71050,73720,76490],"scale":"66000-68480-71050-73720-76490"},"3":{"steps":[56500,58760,61120,63570,66120,68770,71530,74400],"scale":"56500-58760-61120-63570-66120-68770-71530-74400"},"4":{"steps":[50000,52000,54080,56250,58500,60840,63280,65820,68460,71200],"scale":"50000-52000-54080-56250-58500-60840-63280-65820-68460-71200"},"5":{"steps":[43000,44940,46970,49090,51300,53610,56030,58560,61200,63960,66840,69850],"scale":"43000-44940-46970-49090-51300-53610-56030-58560-61200-63960-66840-69850"},"6":{"steps":[35500,37280,39150,41110,43170,45330,47600,49980,52480,55110,57870,60770,63810,67010],"scale":"35500-37280-39150-41110-43170-45330-47600-49980-52480-55110-57870-60770-63810-67010"},"7":{"steps":[29000,30450,31980,33580,35260,37030,38890,40840,42890,45040,47300,49670,52160,54770,57510,60390,63410],"scale":"29000-30450-31980-33580-35260-37030-38890-40840-42890-45040-47300-49670-52160-54770-57510-60390-63410"},"8":{"steps":[23000,24150,25360,27970,29370,30840,32390,34010,35720,37510,39390,41360,43430,45610,47900,50300,52820,55470],"scale":"23000-24150-25360-27970-29370-30840-32390-34010-35720-37510-39390-41360-43430-45610-47900-50300-52820-55470"},"9":{"steps":[22000,23100,24260,25480,26760,28100,29510,30990,32540,34170,35880,37680,39570,41550,43630,45820,48120,50530,53060],"scale":"22000-23100-24260-25480-26760-28100-29510-30990-32540-34170-35880-37680-39570-41550-43630-45820-48120-50530-53060"},"10":{"steps":[16000,16800,17640,18530,19460,20440,21470,22550,23680,24870,26120,27430,28810,30260,31780,33370,35040,36800,38640],"scale":"16000-16800-17640-18530-19460-20440-21470-22550-23680-24870-26120-27430-28810-30260-31780-33370-35040-36800-38640"},"11":{"steps":[12500,13130,13790,14480,15210,15980,16780,17620,18510,19440,20420,21450,22530,23660,24850,26100,27410,28790,30230],"scale":"12500-13130-13790-14480-15210-15980-16780-17620-18510-19440-20420-21450-22530-23660-24850-26100-27410-28790-30230"},"12":{"steps":[11300,11870,12470,13100,13760,14450,15180,15940,16740,17580,18460,19390,20360,21380,22450,23580,24760,26000,27300],"scale":"11300-11870-12470-13100-13760-14450-15180-15940-16740-17580-18460-19390-20360-21380-22450-23580-24760-26000-27300"},"13":{"steps":[11000,11550,12130,12740,13380,14050,14760,15500,16280,17100,17960,18860,19810,20810,21860,22960,24110,25320,26590],"scale":"11000-11550-12130-12740-13380-14050-14760-15500-16280-17100-17960-18860-19810-20810-21860-22960-24110-25320-26590"},"14":{"steps":[10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310,22380,23500,24680],"scale":"10200-10710-11250-11820-12420-13050-13710-14400-15120-15880-16680-17520-18400-19320-20290-21310-22380-23500-24680"},"15":{"steps":[9700,10190,10700,11240,11810,12410,13040,13700,14390,15110,15870,16670,17510,18390,19310,20280,21300,22370,23490],"scale":"9700-10190-10700-11240-11810-12410-13040-13700-14390-15110-15870-16670-17510-18390-19310-20280-21300-22370-23490"},"16":{"steps":[9300,9770,10260,10780,11320,11890,12490,13120,13780,14470,15200,15960,16760,17600,18480,19410,20390,21410,22490],"scale":"9300-9770-10260-10780-11320-11890-12490-13120-13780-14470-15200-15960-16760-17600-18480-19410-20390-21410-22490"},"17":{"steps":[9000,9450,9930,10430,10960,11510,12090,12700,13340,14010,14720,15460,16240,17060,17920,18820,19770,20760,21800],"scale":"9000-9450-9930-10430-10960-11510-12090-12700-13340-14010-14720-15460-16240-17060-17920-18820-19770-20760-21800"},"18":{"steps":[8800,9240,9710,10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310],"scale":"8800-9240-9710-10200-10710-11250-11820-12420-13050-13710-14400-15120-15880-16680-17520-18400-19320-20290-21310"},"19":{"steps":[8500,8930,9380,9850,10350,10870,11420,12000,12600,13230,13900,14600,15330,16100,16910,17760,18650,19590,20570],"scale":"8500-8930-9380-9850-10350-10870-11420-12000-12600-13230-13900-14600-15330-16100-16910-17760-18650-19590-20570"},"20":{"steps":[8250,8670,9110,9570,10050,10560,11090,11650,12240,12860,13510,14190,14900,15650,16440,17270,18140,19050,20010],"scale":"8250-8670-9110-9570-10050-10560-11090-11650-12240-12860-13510-14190-14900-15650-16440-17270-18140-19050-20010"}},"s2026":{"1":{"steps":[156000],"scale":"156000"},"2":{"steps":[132000,135700,139400,143200,147200,151200,153000],"scale":"132000-135700-139400-143200-147200-151200-153000"},"3":{"steps":[113000,117000,121100,125300,129700,134300,139000,143800,148800],"scale":"113000-117000-121100-125300-129700-134300-139000-143800-148800"},"4":{"steps":[100000,103500,107200,110900,114800,118800,123000,127300,131700,136300,142400],"scale":"100000-103500-107200-110900-114800-118800-123000-127300-131700-136300-142400"},"5":{"steps":[86000,89500,93100,96800,100700,104700,108900,113200,117700,122500,127400,132400,139700],"scale":"86000-89500-93100-96800-100700-104700-108900-113200-117700-122500-127400-132400-139700"},"6":{"steps":[71000,74600,78300,82200,86400,90700,95200,100000,104900,110200,115700,121500,127600,134000],"scale":"71000-74600-78300-82200-86400-90700-95200-100000-104900-110200-115700-121500-127600-134000"},"7":{"steps":[58000,60900,64000,67200,70500,74100,77800,81700,85700,90000,94500,99200,104200,109400,114900,120600,126800],"scale":"58000-60900-64000-67200-70500-74100-77800-81700-85700-90000-94500-99200-104200-109400-114900-120600-126800"},"8":{"steps":[46000,48300,50800,53300,56000,58800,61700,64800,68000,71400,75000,78700,82700,86800,91100,95700,100500,105500,110800],"scale":"46000-48300-50800-53300-56000-58800-61700-64800-68000-71400-75000-78700-82700-86800-91100-95700-100500-105500-110800"},"9":{"steps":[44000,46200,48600,51000,53500,56200,59000,62000,65100,68300,71700,75300,79100,83000,87200,91500,96100,100900,105900],"scale":"44000-46200-48600-51000-53500-56200-59000-62000-65100-68300-71700-75300-79100-83000-87200-91500-96100-100900-105900"},"10":{"steps":[32000,33600,35300,37100,38900,40900,42900,45100,47300,49700,52200,54800,57500,60400,63400,66600,69900,73400,77300],"scale":"32000-33600-35300-37100-38900-40900-42900-45100-47300-49700-52200-54800-57500-60400-63400-66600-69900-73400-77300"},"11":{"steps":[25000,26300,27600,29000,30400,32000,33600,35200,37000,38800,40800,42800,44900,47200,49500,52000,54600,57300,60500],"scale":"25000-26300-27600-29000-30400-32000-33600-35200-37000-38800-40800-42800-44900-47200-49500-52000-54600-57300-60500"},"12":{"steps":[24300,25600,26800,28200,29600,31100,32600,34200,36000,37700,39600,41600,43700,45900,48200,50600,53100,55700,58700],"scale":"24300-25600-26800-28200-29600-31100-32600-34200-36000-37700-39600-41600-43700-45900-48200-50600-53100-55700-58700"},"13":{"steps":[24000,25200,26500,27800,29200,30700,32200,33800,35500,37300,39100,41100,43200,45300,47600,49900,52400,55100,58000],"scale":"24000-25200-26500-27800-29200-30700-32200-33800-35500-37300-39100-41100-43200-45300-47600-49900-52400-55100-58000"},"14":{"steps":[23500,24700,26000,27300,28600,30000,31500,33100,34800,36500,38300,40200,42300,44400,46600,48900,51300,53900,56800],"scale":"23500-24700-26000-27300-28600-30000-31500-33100-34800-36500-38300-40200-42300-44400-46600-48900-51300-53900-56800"},"15":{"steps":[22800,24000,25200,26400,27800,29100,30600,32100,33700,35400,37200,39000,41000,43000,45200,47400,49800,52300,55200],"scale":"22800-24000-25200-26400-27800-29100-30600-32100-33700-35400-37200-39000-41000-43000-45200-47400-49800-52300-55200"},"16":{"steps":[21900,23000,24200,25400,26700,28000,29400,30900,32400,34000,35700,37500,39400,41300,43400,45600,47900,50200,52900],"scale":"21900-23000-24200-25400-26700-28000-29400-30900-32400-34000-35700-37500-39400-41300-43400-45600-47900-50200-52900"},"17":{"steps":[21400,22500,23600,24800,26100,27400,28700,30200,31700,33200,34900,36700,38500,40400,42400,44500,46800,49100,51900],"scale":"21400-22500-23600-24800-26100-27400-28700-30200-31700-33200-34900-36700-38500-40400-42400-44500-46800-49100-51900"},"18":{"steps":[21000,22100,23200,24400,25600,26900,28200,29600,31100,32600,34300,36000,37800,39600,41600,43700,45900,48200,50900],"scale":"21000-22100-23200-24400-25600-26900-28200-29600-31100-32600-34300-36000-37800-39600-41600-43700-45900-48200-50900"},"19":{"steps":[20500,21600,22700,23800,25000,26200,27500,28900,30300,31900,33400,35100,36900,38700,40600,42700,44800,47000,49600],"scale":"20500-21600-22700-23800-25000-26200-27500-28900-30300-31900-33400-35100-36900-38700-40600-42700-44800-47000-49600"},"20":{"steps":[20000,21000,22100,23200,24400,25600,26900,28200,29600,31100,32600,34300,36000,37800,39600,41600,43700,45900,48400],"scale":"20000-21000-22100-23200-24400-25600-26900-28200-29600-31100-32600-34300-36000-37800-39600-41600-43700-45900-48400"}}};
@@ -423,8 +622,8 @@ function calculate(){
       <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th style="text-align:right">ফলাফল</th></tr></thead>
       <tbody>${rows.map((r,i)=>`<tr><td>${(i+1).toLocaleString('bn-BD')}</td><td>${esc(r[0])}</td><td class="value">${esc(r[1])}</td></tr>`).join('')}</tbody>
     </table>
-    <div class="actions"><button class="secondary" onclick="window.print()">🖨 প্রতিবেদন প্রিন্ট</button></div>
-    <div class="note">হিসাব টেবিলের ১–১৮ ক্রমিক অনুযায়ী প্রদর্শিত সূত্র অনুসরণ করে। ১ম–৯ম গ্রেডে ৪০% ও ৭০%, ১০ম–২০তম গ্রেডে ৫০% ও ৭৫% অপরিবর্তিত।</div>`;
+    <div class="actions"><button class="secondary" onclick="printOfficeOrder()">🖨 অফিস আদেশের খসড়া প্রিন্ট</button><button class="secondary" onclick="window.print()">🖨 প্রতিবেদন প্রিন্ট</button></div>
+    <div class="note office-access-note"><b>বিশেষ দ্রষ্টব্য:</b> অফিস আদেশের খড়সা প্রিন্ট বাটনটি কেবলমাত্র জেনারেল এ্যাডমিন শাখার ব্যবহারের জন্য।</div>`;
 
   document.getElementById("prName").textContent=name;
   document.getElementById("prEmployeeId").textContent=employeeId;
@@ -433,7 +632,27 @@ function calculate(){
   document.getElementById("prDate").textContent=fmtDate(date);
   document.getElementById("prBody").innerHTML=rows.map((r,i)=>
     `<tr><td class="no">${(i+1).toLocaleString('bn-BD')}.</td><td class="desc">${esc(r[0])}</td><td class="val">${esc(r[1])}</td></tr>`).join("");
+  // Populate the separate office-order draft from the same calculated rows.
+  document.getElementById("orderName").textContent=name;
+  document.getElementById("orderDesignation").textContent=designation;
+  document.getElementById("orderScale").textContent=
+    Number(newSteps[0]).toLocaleString('bn-BD')+'–'+Number(newSteps[newSteps.length-1]).toLocaleString('bn-BD');
+  document.getElementById("orderDistribution").textContent='জনাব '+name+', '+designation+', ব্যক্তিগত পরিচিতি নং: '+employeeId;
+  document.getElementById("orderBody").innerHTML=rows.map((r,i)=>
+    `<tr><td>${(i+1).toLocaleString('bn-BD')}.</td><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
 }
+function printOfficeOrder(){
+  const enteredPassword = window.prompt('অফিস আদেশের খসড়া প্রিন্ট করতে পাসওয়ার্ড দিন:');
+  if (enteredPassword === null) return;
+  if (enteredPassword !== 'PGpayFix26') {
+    window.alert('ভুল পাসওয়ার্ড। অফিস আদেশ প্রিন্ট করা যাবে না।');
+    return;
+  }
+  document.body.classList.add('office-print');
+  window.print();
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('office-print'));
+
 function esc(s){
   return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 }
