@@ -439,7 +439,7 @@ th,td{font-size:16px}.big td{font-size:17px}
     <div class="sign"><br>(মোঃ মোস্তাফিজুর রহমান)<br>ব্যবস্থাপক (জেনারেল এ্যাডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
     <div class="sign"><br>(মুহাম্মদ শফিউল্লাহ)<br>ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
     <div class="sign"><br>কোনো কর্মকর্তা পদায়িত নেই<br>(…)<br>উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign"><br><br><br>(তৌফিক আল মমিন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign"><br><br>(তৌফিক আল মমিন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
   </div>
 </div>
 
@@ -449,7 +449,7 @@ th,td{font-size:16px}.big td{font-size:17px}
   <div class="office-top-pad"></div>
   <div class="office-refdate"><span>সূত্র নং: .............................................</span><span>তারিখ: ........................</span></div>
   <div class="office-heading">অফিস আদেশ</div>
-  <p class="office-intro">পিজিসিএল-এর ৪০০তম বোর্ড সভার অনুমোদনক্রমে জাতীয় বেতনস্কেল-২০২৬-এর অনুরূপ বেতনস্কেলে জনাব <span id="orderName"></span>, <span id="orderDesignation"></span>-এর <span id="orderScale"></span> টাকা বেতনস্কেলে নিম্নরূপ বেতন নির্ধারণ করা হলো:</p>
+  <p class="office-intro">পিজিসিএল-এর ৪০০তম বোর্ড সভার অনুমোদনক্রমে জাতীয় বেতনস্কেল-২০২৬-এর অনুরূপ বেতনস্কেলে <span id="orderName"></span>, <span id="orderDesignation"></span>, <span id="orderWorkplace"></span>, ব্যক্তিগত পরিচিতি নং: <span id="orderEmployeeId"></span>-কে <span id="orderScale"></span> টাকা বেতনস্কেলে নিম্নরূপ বেতন নির্ধারণ করা হলো:</p>
   <table class="office-table">
     <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th>পরিমান</th></tr></thead>
     <tbody id="orderBody"></tbody>
@@ -633,11 +633,16 @@ function calculate(){
   document.getElementById("prBody").innerHTML=rows.map((r,i)=>
     `<tr><td class="no">${(i+1).toLocaleString('bn-BD')}.</td><td class="desc">${esc(r[0])}</td><td class="val">${esc(r[1])}</td></tr>`).join("");
   // Populate the separate office-order draft from the same calculated rows.
-  document.getElementById("orderName").textContent=name;
+  // Only the office order omits জনাব when the input name starts with an engineering title.
+  const engineeringTitleAtStart=/^(?:প্রকৌশলী|প্রকৌ\.?|ইঞ্জিনিয়ার|ইঞ্জি\.?)(?=\s|$)/u.test(name);
+  const officeName=(engineeringTitleAtStart ? '' : 'জনাব ')+name;
+  document.getElementById("orderName").textContent=officeName;
   document.getElementById("orderDesignation").textContent=designation;
+  document.getElementById("orderWorkplace").textContent=workplace;
+  document.getElementById("orderEmployeeId").textContent=employeeId;
   document.getElementById("orderScale").textContent=
     Number(newSteps[0]).toLocaleString('bn-BD')+'–'+Number(newSteps[newSteps.length-1]).toLocaleString('bn-BD');
-  document.getElementById("orderDistribution").textContent='জনাব '+name+', '+designation+', ব্যক্তিগত পরিচিতি নং: '+employeeId;
+  document.getElementById("orderDistribution").textContent=officeName+', '+designation+', '+workplace+', ব্যক্তিগত পরিচিতি নং: '+employeeId;
   document.getElementById("orderBody").innerHTML=rows.map((r,i)=>
     `<tr><td>${(i+1).toLocaleString('bn-BD')}.</td><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
 }
