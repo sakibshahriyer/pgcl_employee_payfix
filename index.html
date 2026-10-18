@@ -244,7 +244,7 @@ th,td{font-size:16px}.big td{font-size:17px}
 }
 
 /* Office order ONLY: safely inset all four table borders and enlarge signature space. */
-@page pgclOfficeLetter { size: letter portrait; margin: 9mm 13mm 10mm 13mm; }
+@page pgclOfficeLetter { size: letter portrait; margin: 9mm 13mm 4mm 13mm; }
 @media print {
   body.office-print .office-order { padding-left: 2mm; padding-right: 2mm; }
   body.office-print .office-table {
@@ -327,6 +327,24 @@ th,td{font-size:16px}.big td{font-size:17px}
     margin-left:2mm !important; margin-right:2mm !important;
   }
 }
+
+/* New official-order identity block: preserve the Letter stationery top pad and table calculations. */
+@media print {
+  body.office-print .office-identity { font-size:12pt; line-height:1.08; margin:0 0 1mm; }
+  body.office-print .office-identity-row { display:grid; grid-template-columns:81mm 4mm minmax(0,1fr); align-items:baseline; break-inside:avoid; }
+  body.office-print .office-identity-row span { overflow-wrap:anywhere; }
+  body.office-print .office-approval { font-size:12pt; line-height:1.05; margin:2mm 0 0; }
+  body.office-print .office-sign { margin-top:6mm !important; }
+  body.office-print .office-copy ol { margin-top:0.5mm; }
+  body.office-print .office-intro { margin-bottom:0.5mm!important; }
+  body.office-print .office-note { margin-top:0.5mm!important; }
+  body.office-print .office-approval { margin-top:0.5mm; }
+}
+/* Office-order print only: move the blank date label 30mm left for handwritten date. */
+@media print {
+  body.office-print .office-refdate > span:last-child { margin-right: 30mm !important; }
+}
+
 </style>
 </head>
 <body>
@@ -439,7 +457,7 @@ th,td{font-size:16px}.big td{font-size:17px}
     <div class="sign"><br>(মোঃ মোস্তাফিজুর রহমান)<br>ব্যবস্থাপক (জেনারেল এ্যাডমিন)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
     <div class="sign"><br>(মুহাম্মদ শফিউল্লাহ)<br>ব্যবস্থাপক (নিরীক্ষা)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
     <div class="sign"><br>কোনো কর্মকর্তা পদায়িত নেই<br>(…)<br>উপ-মহাব্যবস্থাপক (এইচ.আর)<br>ও সদস্য, বেতন নির্ধারণ কমিটি</div>
-    <div class="sign"><br><br>(তৌফিক আল মমিন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
+    <div class="sign"><br><br><br>(তৌফিক আল মমিন)<br>উপ-মহাব্যবস্থাপক (হিসাব)<br>ও আহ্বায়ক, বেতন নির্ধারণ কমিটি</div>
   </div>
 </div>
 
@@ -447,23 +465,31 @@ th,td{font-size:16px}.big td{font-size:17px}
 <!-- Separate print-only draft, intended for PGCL preprinted letterhead. -->
 <section class="office-order" id="officeOrder">
   <div class="office-top-pad"></div>
-  <div class="office-refdate"><span>সূত্র নং: .............................................</span><span>তারিখ: ........................</span></div>
+  <div class="office-refdate"><span>সূত্র নং-২৮.১৮.০০০০.০০০.০৩৪.৫৩.০০৪.২৬.</span><span>তারিখ:</span></div>
   <div class="office-heading">অফিস আদেশ</div>
-  <p class="office-intro">পিজিসিএল-এর ৪০০তম বোর্ড সভার অনুমোদনক্রমে জাতীয় বেতনস্কেল-২০২৬-এর অনুরূপ বেতনস্কেলে <span id="orderName"></span>, <span id="orderDesignation"></span>, <span id="orderWorkplace"></span>, ব্যক্তিগত পরিচিতি নং: <span id="orderEmployeeId"></span>-কে <span id="orderScale"></span> টাকা বেতনস্কেলে নিম্নরূপ বেতন নির্ধারণ করা হলো:</p>
+  <p class="office-intro">পিজিসিএল-এ কার্যকর জাতীয় বেতনস্কেল, ২০২৬ অনুযায়ী নিম্নবর্ণিত কর্মকর্তা/কর্মচারীর বেতন নিম্নরূপভাবে নির্ধারণ করা হলো:</p>
+  <div class="office-identity">
+    <div class="office-identity-row"><span>কর্মকর্তা/কর্মচারীর নাম</span><span>:</span><span id="orderName"></span></div>
+    <div class="office-identity-row"><span>আইডি নম্বর</span><span>:</span><span id="orderEmployeeId"></span></div>
+    <div class="office-identity-row"><span>বর্তমান পদবি</span><span>:</span><span id="orderDesignation"></span></div>
+    <div class="office-identity-row"><span>বর্তমান কর্মস্থল</span><span>:</span><span id="orderWorkplace"></span></div>
+    <div class="office-identity-row"><span>বর্তমান পদে নিয়োগ/পদোন্নতির তারিখ</span><span>:</span><span id="orderDate"></span></div>
+  </div>
   <table class="office-table">
-    <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th>পরিমান</th></tr></thead>
+    <thead><tr><th>ক্রমিক</th><th>বিবরণ</th><th>পরিমাণ</th></tr></thead>
     <tbody id="orderBody"></tbody>
   </table>
-  <p class="office-note">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে প্রদান/আদায়যোগ্য হিসেবে গণ্য হবে।</p>
-  <div class="office-sign"><span>(মো: সাহিনুর আলম)<br>মহাব্যবস্থাপক (প্রশাসন)</span></div>
+  <p class="office-note">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে সমন্বয়যোগ্য হিসেবে গণ্য হবে।</p>
+  <p class="office-approval">যথাযথ কর্তৃপক্ষের অনুমোদনক্রমে এ আদেশ জারি করা হলো।</p>
+  <div class="office-sign"><span><br>(মো: সাহিনুর আলম)<br>মহাব্যবস্থাপক (প্রশাসন)</span></div>
   <div class="office-distribution"><b>বিতরণ:</b><div id="orderDistribution"></div></div>
   <div class="office-copy"><b>অনুলিপি:</b>
     <ol>
-      <li>মহাব্যবস্থাপক (অর্থ)</li>
-      <li>উপ-মহাব্যবস্থাপক (ফিন্যান্স)</li>
-      <li>উপ-মহাব্যবস্থাপক (এ্যাকাউন্টস)</li>
-      <li>উপ-ব্যবস্থাপক (সমন্বয়), ব্যবস্থাপনা পরিচালক, পিজিসিএল</li>
-      <li>অফিস কপি।</li>
+      <li>মহাব্যবস্থাপক (অর্থ), পিজিসিএল।</li>
+      <li>উপ-মহাব্যবস্থাপক (হিসাব/অর্থ/নিরীক্ষা), পিজিসিএল।</li>
+      <li>ব্যবস্থাপক (পে-রোল, এ্যাডভান্স এ্যান্ড বিল), পিজিসিএল।</li>
+      <li>উপ-ব্যবস্থাপক (সমন্বয়), ব্যবস্থাপনা পরিচালকের দপ্তর, পিজিসিএল।</li>
+      <li>ব্যক্তিগত নথি/অফিস কপি।</li>
     </ol>
   </div>
 </section>
@@ -634,15 +660,15 @@ function calculate(){
     `<tr><td class="no">${(i+1).toLocaleString('bn-BD')}.</td><td class="desc">${esc(r[0])}</td><td class="val">${esc(r[1])}</td></tr>`).join("");
   // Populate the separate office-order draft from the same calculated rows.
   // Only the office order omits জনাব when the input name starts with an engineering title.
-  const engineeringTitleAtStart=/^(?:প্রকৌশলী|প্রকৌ\.?|ইঞ্জিনিয়ার|ইঞ্জি\.?)(?=\s|$)/u.test(name);
+  const normalizedOfficeName=name.normalize('NFC').replace(/[\u200B-\u200D\uFEFF]/g,'').trimStart();
+  const engineeringTitleAtStart=/^(?:প্রকৌশলী|প্রকৌ|ইঞ্জিনিয়ার|ইঞ্জি)(?:[.．।ঃ:]?)(?=\s|$|[,，])/u.test(normalizedOfficeName);
   const officeName=(engineeringTitleAtStart ? '' : 'জনাব ')+name;
-  document.getElementById("orderName").textContent=officeName;
+  document.getElementById("orderName").textContent=name;
   document.getElementById("orderDesignation").textContent=designation;
   document.getElementById("orderWorkplace").textContent=workplace;
   document.getElementById("orderEmployeeId").textContent=employeeId;
-  document.getElementById("orderScale").textContent=
-    Number(newSteps[0]).toLocaleString('bn-BD')+'–'+Number(newSteps[newSteps.length-1]).toLocaleString('bn-BD');
-  document.getElementById("orderDistribution").textContent=officeName+', '+designation+', '+workplace+', ব্যক্তিগত পরিচিতি নং: '+employeeId;
+  document.getElementById("orderDate").textContent=fmtDate(date);
+  document.getElementById("orderDistribution").textContent=officeName+', '+designation+', '+workplace+', পিজিসিএল।';
   document.getElementById("orderBody").innerHTML=rows.map((r,i)=>
     `<tr><td>${(i+1).toLocaleString('bn-BD')}.</td><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
 }
