@@ -666,7 +666,6 @@ function calculate(){
   document.getElementById("orderDesignation").textContent=designation;
   document.getElementById("orderWorkplace").textContent=workplace;
   document.getElementById("orderEmployeeId").textContent=employeeId;
-  document.getElementById("orderDate").textContent=fmtDate(date);
   document.getElementById("orderDistribution").textContent=officeName+', '+designation+', '+workplace+', পিজিসিএল।';
   document.getElementById("orderBody").innerHTML=rows.map((r,i)=>
     `<tr><td>${(i+1).toLocaleString('bn-BD')}.</td><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
