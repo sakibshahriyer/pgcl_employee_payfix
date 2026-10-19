@@ -292,7 +292,7 @@ th,td{font-size:16px}.big td{font-size:17px}
   body.office-print .office-table th { font-size: 11pt !important; }
   body.office-print .office-table th,
   body.office-print .office-table td { padding: 0.35px 2.2px !important; line-height: 1.0 !important; }
-  body.office-print .office-refdate { margin-bottom: 1.4mm !important; }
+  body.office-print .office-refdate { margin-bottom: 1.8mm !important; }
   body.office-print .office-heading { margin-bottom: 1.6mm !important; }
   body.office-print .office-intro { margin-bottom: 1.6mm !important; line-height: 1.07 !important; }
   body.office-print .office-table { margin-top: 1mm !important; margin-bottom: 1mm !important; }
@@ -323,8 +323,8 @@ th,td{font-size:16px}.big td{font-size:17px}
 /* Office-order-only: widen the table slightly, keeping a 2mm inset on either side. */
 @media print {
   body.office-print .office-table {
-    width:calc(100% - 4mm) !important;
-    margin-left:2mm !important; margin-right:2mm !important;
+    width:calc(100% - 2mm) !important;
+    margin-left:0 !important; margin-right:2mm !important;
   }
 }
 
@@ -343,6 +343,8 @@ th,td{font-size:16px}.big td{font-size:17px}
 /* Office-order print only: move the blank date label 30mm left for handwritten date. */
 @media print {
   body.office-print .office-refdate > span:last-child { margin-right: 0 !important; }
+  /* Move only the reference/date line upward; do not shift the office-order heading. */
+  body.office-print .office-refdate { transform: translateY(-0.4mm); }
   /* Additional 10mm clearance below the preprinted letterhead. */
   body.office-print .office-top-pad { height: 30mm !important; }
 }
