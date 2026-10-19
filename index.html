@@ -342,7 +342,9 @@ th,td{font-size:16px}.big td{font-size:17px}
 }
 /* Office-order print only: move the blank date label 30mm left for handwritten date. */
 @media print {
-  body.office-print .office-refdate > span:last-child { margin-right: 30mm !important; }
+  body.office-print .office-refdate > span:last-child { margin-right: 0 !important; }
+  /* Additional 10mm clearance below the preprinted letterhead. */
+  body.office-print .office-top-pad { height: 30mm !important; }
 }
 
 </style>
@@ -465,7 +467,7 @@ th,td{font-size:16px}.big td{font-size:17px}
 <!-- Separate print-only draft, intended for PGCL preprinted letterhead. -->
 <section class="office-order" id="officeOrder">
   <div class="office-top-pad"></div>
-  <div class="office-refdate"><span>সূত্র নং-২৮.১৮.০০০০.০০০.০৩৪.৫৩.০০৪.২৬.</span><span>তারিখ:</span></div>
+  <div class="office-refdate"><span>সূত্র নং-২৮.১৮.০০০০.০০০.০৩৪.৫৩.০০৪.২৬.</span><span>তারিখ: <span style="display:inline-block;width:12mm"></span>/১০/২০২৬</span></div>
   <div class="office-heading">অফিস আদেশ</div>
   <p class="office-intro">পিজিসিএল-এ কার্যকর জাতীয় বেতনস্কেল, ২০২৬ অনুযায়ী নিম্নবর্ণিত কর্মকর্তা/কর্মচারীর বেতন নিম্নরূপভাবে নির্ধারণ করা হলো:</p>
   <div class="office-identity">
@@ -481,7 +483,7 @@ th,td{font-size:16px}.big td{font-size:17px}
   <p class="office-note">উপর্যুক্ত বেতন নির্ধারণে কোন রকম কম/বেশী পরিলক্ষিত হলে তা পরবর্তীতে সমন্বয়যোগ্য হিসেবে গণ্য হবে।</p>
   <p class="office-approval">যথাযথ কর্তৃপক্ষের অনুমোদনক্রমে এ আদেশ জারি করা হলো।</p>
   <div class="office-sign"><span><br>(মো: সাহিনুর আলম)<br>মহাব্যবস্থাপক (প্রশাসন)</span></div>
-  <div class="office-distribution"><b>বিতরণ:</b><div id="orderDistribution"></div></div>
+  <div class="office-distribution"><b>বিতরণ:</b> <span id="orderDistribution"></span></div>
   <div class="office-copy"><b>অনুলিপি:</b>
     <ol>
       <li>মহাব্যবস্থাপক (অর্থ), পিজিসিএল।</li>
@@ -671,12 +673,6 @@ function calculate(){
     `<tr><td>${(i+1).toLocaleString('bn-BD')}.</td><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
 }
 function printOfficeOrder(){
-  const enteredPassword = window.prompt('অফিস আদেশের খসড়া প্রিন্ট করতে পাসওয়ার্ড দিন:');
-  if (enteredPassword === null) return;
-  if (enteredPassword !== 'PGpayFix26') {
-    window.alert('ভুল পাসওয়ার্ড। অফিস আদেশ প্রিন্ট করা যাবে না।');
-    return;
-  }
   document.body.classList.add('office-print');
   window.print();
 }
