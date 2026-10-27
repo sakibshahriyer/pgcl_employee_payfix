@@ -488,7 +488,7 @@ th,td{font-size:16px}.big td{font-size:17px}
   <div class="office-distribution"><b>বিতরণ:</b> <span id="orderDistribution"></span></div>
   <div class="office-copy"><b>অনুলিপি:</b>
     <ol>
-      <li>............................................................।</li>
+      <li>..............................................................................</li>
       <li>উপ-মহাব্যবস্থাপক (হিসাব), পিজিসিএল।</li>
       <li>ব্যবস্থাপক (পে-রোল, এ্যাডভান্স এ্যান্ড বিল), পিজিসিএল।</li>
       <li>উপ-ব্যবস্থাপক (সমন্বয়), ব্যবস্থাপনা পরিচালকের দপ্তর, পিজিসিএল।</li>
@@ -670,7 +670,7 @@ function calculate(){
   document.getElementById("orderDesignation").textContent=designation;
   document.getElementById("orderWorkplace").textContent=workplace;
   document.getElementById("orderEmployeeId").textContent=employeeId;
-  document.getElementById("orderDistribution").textContent=officeName+', '+designation+', '+workplace+', পিজিসিএল।';
+  document.getElementById("orderDistribution").textContent=officeName+', '+designation+', '+workplace+'।';
   document.getElementById("orderBody").innerHTML=rows.map((r,i)=>
     `<tr><td>${(i+1).toLocaleString('bn-BD')}.</td><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
 }
